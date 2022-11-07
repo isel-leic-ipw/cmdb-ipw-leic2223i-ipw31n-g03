@@ -1,0 +1,28 @@
+{
+  "dependencies": {
+    "chai": "^4.3.6",
+    "express": "^4.18.2",
+    "fetch": "^1.1.0",
+    "fs": "^0.0.1-security",
+    "mocha": "^10.1.0",
+    "node-fetch": "^3.2.10",
+    "promises": "^0.2.5"
+  },
+  "name": "cmdb-ipw-leic2223i-ipw31n-g03",
+  "version": "1.0.0",
+  "description": "cmdb",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/isel-leic-ipw/cmdb-ipw-leic2223i-ipw31n-g03.git"
+  },
+  "author": "Leic 2223 SI IPW G03",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/isel-leic-ipw/cmdb-ipw-leic2223i-ipw31n-g03/issues"
+  },
+  "homepage": "https://github.com/isel-leic-ipw/cmdb-ipw-leic2223i-ipw31n-g03#readme"
+}
