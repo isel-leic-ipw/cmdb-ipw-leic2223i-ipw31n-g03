@@ -22,5 +22,8 @@ export async function addMovie(req, rsp){
 }
 export async function removeMovie(req, rsp){
 }
+export async function getUsers(req, rsp){
+}
+
 export async function createUser(req, rsp){
 }

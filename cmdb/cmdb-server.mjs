@@ -10,17 +10,20 @@ console.log("setting up server")
 let app = express()
 
 app.use(express.json())
-//List
-app.get("/list/:max",api.listMovies)
-//Search
-app.get("/search/:movie/:max",api.searchMovie)
-//Groups
-app.post("/groups/create",api.createGroup)
-app.put("/groups/edit/:group_id",api.editGroup)
-app.get("/groups/list",api.listGroups)
-app.delete("/groups/delete/:group_id",api.deleteGroup)
-app.get("/groups/details/:group_id",api.groupDetails)
-app.put("/groups/add/:group_id",api.addMovie)
-app.put("/groups/remove/:group_id",api.removeMovie)
+// Top Movies
+app.get("/movies/top", api.listMovies)
+// Search Movie by Name
+app.get("/movies/search/:movie_name/",api.searchMovie)
+// Groups
+app.get("/groups", api.listGroups)
+app.post("/groups", api.createGroup)
+// Group
+app.get("/groups/:group_id", api.groupDetails)
+app.put("/groups/:group_id", api.editGroup)
+app.delete("/groups/:group_id", api.deleteGroup)
+// Movie in Group
+app.put("/groups/:group_id/:movie_id", api.addMovie)
+app.delete("/groups/:group_id/:movie_id", api.removeMovie)
 //Users
-app.post("/user/create",api.createUser)
+app.get("/users", api.getUsers)
+app.post("/users", api.createUser)
