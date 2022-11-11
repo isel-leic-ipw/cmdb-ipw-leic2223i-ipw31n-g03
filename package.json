@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "chai": "^4.3.6",
+    "cors": "^2.8.5",
     "express": "^4.18.2",
     "fetch": "^1.1.0",
     "fs": "^0.0.1-security",
@@ -26,5 +27,8 @@
   "bugs": {
     "url": "https://github.com/isel-leic-ipw/cmdb-ipw-leic2223i-ipw31n-g03/issues"
   },
-  "homepage": "https://github.com/isel-leic-ipw/cmdb-ipw-leic2223i-ipw31n-g03#readme"
+  "homepage": "https://github.com/isel-leic-ipw/cmdb-ipw-leic2223i-ipw31n-g03#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
 }

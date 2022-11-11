@@ -3,13 +3,21 @@
 
 import express from "express"
 import * as api from "./cmdb-web-api.mjs"
+import swaggerUi from 'swagger-ui-express'
+import yaml from 'yamljs'
+import cors from 'cors'
 
+const swaggerDocument = yaml.load('C:\\Users\\d4nfo\\IdeaProjects\\cmdb-ipw-leic2223i-ipw31n-g03\\cmdb\\docs\\cmdb-api.yaml')
 const PORT = 1500
 
-console.log("setting up server")
+console.log("Start setting up server")
 let app = express()
 
+app.use(cors())
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 app.use(express.json())
+
+
 // Top Movies
 app.get("/movies/top", api.listMovies)
 // Search Movie by Name
@@ -27,3 +35,5 @@ app.delete("/groups/:group_id/:movie_id", api.removeMovie)
 //Users
 app.get("/users", api.getUsers)
 app.post("/users", api.createUser)
+
+app.listen(PORT, () => console.log(`Server listening in http://localhost:${PORT}`))

@@ -1,0 +1,94 @@
+openapi: 3.0.1
+info:
+  title: CMDB API
+  description: Description
+  contact:
+    email: a48061@alunos.isel.pt / a48066@alunos.isel.pt
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+  - description: Localhost server for testing API
+    url: http://localhost:1500/
+
+tags:
+  - name: Movies
+  - name: Groups
+  - name: Users
+
+paths:
+  /movies/top:
+    get:
+      tags:
+        - Movies
+      summary: Get Top Movies
+      description: Get the all time top rated movies
+      operationId: getTopMovies
+      security:
+        - bearerAuth: [ ]
+      parameters:
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+            format: uuid
+        - name: limit
+          in: query
+          description: Maximum number of movies to return
+          schema:
+            maximum: 250
+            minimum: 0
+            type: integer
+      responses:
+        200:
+          description: Search results matching criteria
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Movie'
+        400:
+          description: bad input parameter
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidRequest'
+#  /movies/search/{movieName}:
+#  /groups:
+#  /groups/{groupId}:
+#  /groups/{groupId}/{movieId}:
+#  /users:
+
+components:
+  securitySchemes:
+    bearerAuth: # arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+  schemas:
+    Movie:
+      required:
+      - id
+      - rank
+      - title
+      - rating
+      - ratingCount
+
+      type: object
+      properties:
+        id:
+          type: string
+          example: tt0111161
+        rank:
+          type: integer
+          example: 1
+        title:
+          type: string
+          example: The Shawshank Redemption
+        rating:
+          type: number
+          example: 9.2
+        ratingCount:
+          type: integer
+          example: 2659683
