@@ -1,3 +1,4 @@
+## TODO errors examples
 openapi: 3.0.1
 info:
   title: CMDB API
@@ -22,20 +23,50 @@ paths:
     get:
       tags:
         - Movies
-      summary: Get Top Movies
-      description: Get the all time top rated movies
+      summary: Get top rated Movies
+      description: Get the all time top rated Movies
       operationId: getTopMovies
-      security:
-        - bearerAuth: [ ]
       parameters:
-        - name: Authorization
-          in: header
-          schema:
-            type: string
-            format: uuid
         - name: limit
           in: query
-          description: Maximum number of movies to return
+          description: Maximum number of Movies to return
+          schema:
+            maximum: 250
+            minimum: 0
+            type: integer
+      responses:
+        200:
+          description: Results matching criteria
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Movie'
+        400:
+          description: bad input parameter
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidRequest'
+  /movies:
+    get:
+      tags:
+        - Movies
+      summary: Get movies
+      description: By passing in the appropriate options, you can search for Movies
+      operationId: getMovies
+      parameters:
+        - name: title
+          in: query
+          description: Pass an optional search string for looking up Movies with that title
+          schema:
+            maximum: 250
+            minimum: 0
+            type: integer
+        - name: limit
+          in: query
+          description: Maximum number of Movies to return
           schema:
             maximum: 250
             minimum: 0
@@ -50,17 +81,233 @@ paths:
                 items:
                   $ref: '#/components/schemas/Movie'
         400:
-          description: bad input parameter
+          description: Bad input parameter
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/InvalidRequest'
-#  /movies/search/{movieName}:
-#  /groups:
-#  /groups/{groupId}:
-#  /groups/{groupId}/{movieId}:
-#  /users:
-
+  /groups:
+    get:
+      tags:
+        - Groups
+      summary: Get Groups
+      description: Get all Groups that belong to a specific User
+      operationId: getGroups
+      security:
+        - bearerAuth: [ ]
+      responses:
+        200:
+          description: Results matching criteria
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Group'
+        400:
+          description: Bad input parameter
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidRequest'
+    post:
+      tags:
+      - Groups
+      summary: Create a Group
+      description: Create a new Group for a specific User
+      operationId: creatGroup
+      security:
+        - bearerAuth: [ ]
+      requestBody:
+        description: Group to creat
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewGroup'
+        required: true
+      responses:
+        201:
+          description: Group created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NewGroupCreated'
+        400:
+          description: Invalid input, object invalid
+          content: { }
+  /groups/{groupId}:
+    get:
+      tags:
+      - Groups
+      summary: Get a Group
+      description: Get a Group given is id
+      operationId: getGroupById
+      security:
+        - bearerAuth: [ ]
+      parameters:
+        - name: groupId
+          in: path
+          description: ID of Group to be fetched
+          required: true
+          schema:
+            type: integer
+            minimum: 0
+      responses:
+        200:
+          description: Group fetch successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Group'
+        400:
+          description: Invalid ID supplied
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidRequest'
+        404:
+          description: Group not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvalidRequest'
+    put:
+      tags:
+      - Groups
+      summary: Update a Group
+      description: Update a Group in the system
+      operationId: updateGroup
+      security:
+        - bearerAuth: [ ]
+      parameters:
+        - name: groupId
+          in: path
+          description: ID of the Group to be deleted
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Group to update
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewGroup'
+        required: false
+      responses:
+        200:
+          description: Group updated
+          content: { }
+        404:
+          description: Group not found
+          content: { }
+    delete:
+      tags:
+      - Groups
+      summary: Delete a Group
+      description: Delete a Group in the system
+      operationId: deleteGroup
+      security:
+        - bearerAuth: [ ]
+      parameters:
+        - name: groupId
+          in: path
+          description: ID of the Group to be deleted
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Group updated
+          content: { }
+        400:
+          description: Invalid ID supplied
+          content: { }
+        404:
+          description: Group not found
+          content: { }
+  /groups/{groupId}/{movieId}:
+    put:
+      tags:
+        - Groups
+      summary: Add a Movie to a Group
+      description: Update a Group with a new Movie
+      operationId: addMovie
+      security:
+        - bearerAuth: [ ]
+      parameters:
+        - name: groupId
+          in: path
+          description: ID of the Group to be updated
+          required: true
+          schema:
+            type: integer
+        - name: movieId
+          in: path
+          description: ID of the Movie to be added
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Group updated with the added Movie
+          content: { }
+        404:
+          description: Group not found or Movie not found
+          content: { }
+    delete:
+      tags:
+        - Groups
+      summary: Remove a Movie from a Group
+      description: Update a Group without a Movie
+      operationId: removeMovie
+      security:
+        - bearerAuth: [ ]
+      parameters:
+        - name: groupId
+          in: path
+          description: ID of the Group to be updated
+          required: true
+          schema:
+            type: integer
+        - name: movieId
+          in: path
+          description: ID of the Movie to be added
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Group updated without the removed Movie
+          content: { }
+        400:
+          description: Invalid ID supplied
+          content: { }
+        404:
+          description: Group not found or Movie not found
+          content: { }
+  /users:
+    post:
+      tags:
+      - Users
+      summary: Create a User
+      description: Create a User in the system
+      operationId: createUser
+      responses:
+        201:
+          description: User created
+          content:
+            application/json:
+              schema:
+                required:
+                  - token
+                type: object
+                properties:
+                  token:
+                    type: string
+                    format: uuid
+        400:
+          description: Invalid input, object invalid
+          content: { }
 components:
   securitySchemes:
     bearerAuth: # arbitrary name for the security scheme
@@ -74,7 +321,6 @@ components:
       - title
       - rating
       - ratingCount
-
       type: object
       properties:
         id:
@@ -92,3 +338,56 @@ components:
         ratingCount:
           type: integer
           example: 2659683
+    Group:
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: My Group
+        description:
+          type: string
+          example: Some Group description
+        movies:
+          type: array
+          items:
+            $ref: '#/components/schemas/Movie'
+        totalDuration:
+          type: integer
+          example: 120
+    NewGroup:
+      required:
+        - name
+      type: object
+      properties:
+        name:
+          type: string
+          example: My Group
+        description:
+          type: string
+          example: Some Group description
+    NewGroupCreated:
+      required:
+        - status
+        - group
+      type: object
+      properties:
+        status:
+          type: string
+          example: Group with id 123 created with success
+        task:
+          $ref: '#/components/schemas/NewGroup'
+    InvalidRequest:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Missing required parameter"
+        description:
+          type: string
+          example: "Some description"
