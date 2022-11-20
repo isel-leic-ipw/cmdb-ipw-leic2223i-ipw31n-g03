@@ -4,8 +4,8 @@ import * as CMDBServices from '../services/cmdb-services.mjs'
 import { BEARER, AUTHORIZATION } from './cmdb-api-constants.mjs'
 import toHttpResponse from './cmdb-response-errors.mjs'
 
-export let getMoviesTop = handleRequest(getMoviesTopInternal)
-export let getMovies = handleRequest(getMoviesInternal)
+export let getMoviesTop = handleRequestWOTOkken(getMoviesTopInternal)
+export let getMovies = handleRequestWOTOkken(getMoviesInternal)
 
 export let getGroup = handleRequest(getGroupInternal)
 export let createGroup = handleRequest(createGroupInternal)
@@ -16,7 +16,7 @@ export let getGroups = handleRequest(getGroupsInternal)
 export let addMovie = handleRequest(addMovieInternal)
 export let removeMovie = handleRequest(removeMovieInternal)
 
-export let createUser = handleRequest(createUserInternal)
+export let createUser = handleRequestWOTOkken(createUserInternal)
 
 async function getMoviesTopInternal(req, rsp) {
     return await CMDBServices.getMoviesTop(req.query.limit)
@@ -68,7 +68,7 @@ export async function removeMovieInternal(req, rsp) {
 }
 
 export async function createUserInternal(req, rsp) {
-    let user = await CMDBServices.createUser()
+        let user = await CMDBServices.createUser(req.query.username, req.query.pwd)
     return {
         status: `User with id ${user.id} created with success`,
         user: user
@@ -78,12 +78,23 @@ export async function createUserInternal(req, rsp) {
 function handleRequest(handler) {
     return async function (req, rsp) {
         let tokenHeader = req.get(AUTHORIZATION)
-        // if (!(tokenHeader && tokenHeader.startsWith(BEARER)) && tokenHeader.length > BEARER.length) {
-        //     rsp.status(401).json({ error: "Invalid token" })
-        //     return
-        // }
-        // req.token = tokenHeader.split(" ")[1]
+         if (!(tokenHeader && tokenHeader.startsWith(BEARER)) && tokenHeader.length > BEARER.length) {
+             rsp.status(401).json({ error: "Invalid token" })
+             return
+         }
+         req.token = tokenHeader.split(" ")[1]
 
+        try {
+            let body = await handler(req, rsp)
+            rsp.json(body)
+        } catch(e) {
+            const response = toHttpResponse(e)
+            rsp.status(response.status).json({error: response.body})
+        }
+    }
+}
+function handleRequestWOTOkken(handler) {
+    return async function (req, rsp) {
         try {
             let body = await handler(req, rsp)
             rsp.json(body)

@@ -17,6 +17,12 @@ export default {
             code: 3,
             message: `Group with id ${groupId} not found`
         }
+    },
+    USER_NAME_ALREADY_USED: () => {
+        return {
+            code: 4,
+            message: `UserName Already in use`
+        }
     }
 
 }

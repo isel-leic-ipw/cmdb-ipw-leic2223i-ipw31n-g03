@@ -1,0 +1,25 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "token": "eacf34a2-8bd5-48a5-8418-f764f7eb611d",
+      "username": "Sérgio Zorro",
+      "pwd": "cenas",
+      "groups": [
+        {
+          "idx": 1,
+          "userId": 1,
+          "groupRepresentation": "teste",
+          "movies": []
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "token": "8bcc2b0b-6553-484f-8ef1-3886645c402f",
+      "username": "João Paulo",
+      "pwd": "SLB",
+      "groups": []
+    }
+  ]
+}

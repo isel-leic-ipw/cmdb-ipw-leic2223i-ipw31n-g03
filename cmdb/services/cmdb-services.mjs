@@ -1,6 +1,7 @@
 // Module that contains the functions that handle all HTTP APi requests
 
 import * as CMDBdata from '../data/cmdb-data-mem.mjs'
+import * as CMDBmoviesAPI from '../data/imdb-movies-data.mjs'
 import { MAX_LIMIT, MIN_LIMIT } from "./cmdb-services-constants.mjs"
 import errors from '../errors.mjs'
 
@@ -10,16 +11,16 @@ export async function getMoviesTop(limit = MAX_LIMIT) {
         throw errors.INVALID_PARAMETER("limit", `Limit must be positive, less than ${MAX_LIMIT}`)
     }
 
-    return CMDBdata.getMoviesTop(limit)
+    return CMDBmoviesAPI.getMoviesTop(limit)
 }
 
-export async function getMovies(limit = MAX_LIMIT) {
+export async function getMovies(q,limit = MAX_LIMIT) {
     limit = Number(limit)
     if (isNaN(limit) || limit > MAX_LIMIT || limit < MIN_LIMIT) {
         throw errors.INVALID_PARAMETER("limit", `Limit must be positive, less than ${MAX_LIMIT}`)
     }
 
-    return CMDBdata.getMovies(limit)
+    return CMDBmoviesAPI.getMovies(q,limit)
 }
 
 export async function getGroup(userToken, groupId) {
@@ -44,7 +45,7 @@ export async function createGroup(userToken, groupRepresentation) {
         throw errors.INVALID_PARAMETER('name')
     }
 
-    return CMDBdata.creatGroup(user.id, groupRepresentation)
+    return CMDBdata.createGroup(user.id, groupRepresentation)
 }
 
 export async function updateGroup(userToken, groupId, groupRepresentation) {
@@ -94,8 +95,12 @@ export async function removeMovie(userToken, groupId, movieId) {
     return CMDBdata.removeMovie(user.id, groupId, movieId)
 }
 
-export async function createUser() {
-    return CMDBdata.createUser()
+export async function createUser(username,pwd) {
+    let result = await CMDBdata.createUser(username,pwd)
+    if(!result){
+        throw errors.USER_NAME_ALREADY_USED()
+    }
+    return result
 }
 
 function isValidString(value) {

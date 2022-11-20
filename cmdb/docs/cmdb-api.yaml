@@ -292,6 +292,19 @@ paths:
       summary: Create a User
       description: Create a User in the system
       operationId: createUser
+      parameters:
+        - name: username
+          in: query
+          description: name the user wish to be known has
+          schema:
+            maximum: 250
+            minimum: 1
+            type: string
+        - name: pwd
+          in: query
+          description: password of the user
+          schema:
+            type: string
       responses:
         201:
           description: User created

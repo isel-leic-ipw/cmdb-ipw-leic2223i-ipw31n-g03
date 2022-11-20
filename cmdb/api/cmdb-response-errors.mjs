@@ -18,6 +18,7 @@ export default function(e) {
         case 1: return new HttpErrorResponse(HTTP_STATUS_CODES.BAD_REQUEST, e.message, e.description)
         case 2: return new HttpErrorResponse(HTTP_STATUS_CODES.UNAUTHORIZED, e.message, e.description)
         case 3: return new HttpErrorResponse(HTTP_STATUS_CODES.NOT_FOUND, e.message, e.description)
+        case 4: return new HttpErrorResponse(HTTP_STATUS_CODES.UNAUTHORIZED,e.message)
         default: return new HttpErrorResponse(HTTP_STATUS_CODES.INTERNAL_SERVER_ERROR, "Internal error.")
     }
 }

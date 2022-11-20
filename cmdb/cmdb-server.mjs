@@ -7,7 +7,7 @@ import swaggerUi from 'swagger-ui-express'
 import yaml from 'yamljs'
 import cors from 'cors'
 
-const swaggerDocument = yaml.load('C:\\Users\\d4nfo\\IdeaProjects\\cmdb-ipw-leic2223i-ipw31n-g03\\cmdb\\docs\\cmdb-api.yaml')
+const swaggerDocument = yaml.load('./docs/cmdb-api.yaml')
 const PORT = 1500
 
 console.log("Start setting up server")
