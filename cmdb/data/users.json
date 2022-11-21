@@ -2,23 +2,47 @@
   "users": [
     {
       "id": 1,
-      "token": "eacf34a2-8bd5-48a5-8418-f764f7eb611d",
-      "username": "Sérgio Zorro",
-      "pwd": "cenas",
+      "token": "dac7dfa1-660e-4436-b487-8124ada49f91",
       "groups": [
         {
-          "idx": 1,
-          "userId": 1,
-          "groupRepresentation": "teste",
+          "id": 1,
+          "name": "teste_update",
+          "description": "",
           "movies": []
+        },
+        {
+          "id": 2,
+          "name": "teste2",
+          "description": "teste de descrição",
+          "movies": []
+        },
+        {
+          "id": 3,
+          "name": "acçao",
+          "description": "lista de filmes para ver no fim de semama",
+          "movies": [
+            {
+              "id": "tt0468569",
+              "title": "The Dark Knight",
+              "originalTitle": "",
+              "fullTitle": "The Dark Knight (2008)",
+              "type": "Movie",
+              "year": 2008,
+              "releaseDate": "2008-07-18",
+              "runtimeMins": 152,
+              "runtimeStr": "2h 32min",
+              "writers": "Jonathan Nolan, Christopher Nolan, David S. Goyer",
+              "stars": "Christian Bale, Heath Ledger, Aaron Eckhart",
+              "genres": "Action, Crime, Drama",
+              "imDbRating": 9
+            }
+          ]
         }
       ]
     },
     {
       "id": 2,
-      "token": "8bcc2b0b-6553-484f-8ef1-3886645c402f",
-      "username": "João Paulo",
-      "pwd": "SLB",
+      "token": "32fdf193-0372-4bb1-970c-76830d184626",
       "groups": []
     }
   ]

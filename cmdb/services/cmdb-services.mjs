@@ -53,11 +53,15 @@ export async function updateGroup(userToken, groupId, groupRepresentation) {
     if(!user) {
         throw errors.USER_NOT_FOUND()
     }
+    let group_id = Number(groupId)
+    if (isNaN(group_id) || group_id === undefined ){
+        throw errors.GROUP_NOT_FOUND()
+    }
     if(!isValidString(groupRepresentation.name)) { //TODO check if description is optional
         throw errors.INVALID_PARAMETER('name')
     }
 
-    return CMDBdata.updateGroup(user.id, groupId, groupRepresentation)
+    return CMDBdata.updateGroup(user.id, group_id, groupRepresentation)
 }
 
 export async function deleteGroup(userToken, groupId) {
@@ -65,7 +69,11 @@ export async function deleteGroup(userToken, groupId) {
     if(!user) {
         throw errors.USER_NOT_FOUND()
     }
-    return CMDBdata.deleteGroup(user.id, groupId)
+    let group_id = Number(groupId)
+    if (isNaN(group_id) || group_id === undefined ){
+        throw errors.GROUP_NOT_FOUND()
+    }
+    return CMDBdata.deleteGroup(user.id, group_id)
 }
 
 export async function getGroups(userToken) {
@@ -82,8 +90,15 @@ export async function addMovie(userToken, groupId, movieId) {
     if(!user) {
         throw errors.USER_NOT_FOUND()
     }
+    let group_id = Number(groupId)
+    if (isNaN(group_id) || group_id === undefined ){
+        throw errors.GROUP_NOT_FOUND()
+    }
+    if(!isValidString(movieId)) {
+        throw errors.INVALID_PARAMETER(movieId)
+    }
 
-    return CMDBdata.addMovie(user.id, groupId, movieId)
+    return CMDBdata.addMovie(user.id, group_id, movieId)
 }
 
 export async function removeMovie(userToken, groupId, movieId) {
@@ -91,16 +106,18 @@ export async function removeMovie(userToken, groupId, movieId) {
     if(!user) {
         throw errors.USER_NOT_FOUND()
     }
+    let group_id = Number(groupId)
+    if (isNaN(group_id) || group_id === undefined ){
+        throw errors.GROUP_NOT_FOUND()
+    }
+    if(!isValidString(movieId)){throw errors.INVALID_PARAMETER(movieId)}
 
-    return CMDBdata.removeMovie(user.id, groupId, movieId)
+
+    return CMDBdata.removeMovie(user.id, group_id, movieId)
 }
 
-export async function createUser(username,pwd) {
-    let result = await CMDBdata.createUser(username,pwd)
-    if(!result){
-        throw errors.USER_NAME_ALREADY_USED()
-    }
-    return result
+export async function createUser() {
+    return await CMDBdata.createUser()
 }
 
 function isValidString(value) {

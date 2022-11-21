@@ -60,15 +60,23 @@ async function getGroupsInternal(req, rsp) {
 }
 
 async function addMovieInternal(req, rsp) {
-    return await CMDBServices.addMovie(req.token, req.params.groupId, req.params.movieId)
+    let group = await CMDBServices.addMovie(req.token, req.params.groupId, req.params.movieId)
+    return{
+        status: `Movie with id:${req.params.movieId} added to group:${group.id} with success`,
+        group:group
+    }
 }
 
 export async function removeMovieInternal(req, rsp) {
-    return await CMDBServices.removeMovie(req.token, req.params.groupId, req.params.movieId)
+    let group = await CMDBServices.removeMovie(req.token, req.params.groupId, req.params.movieId)
+    return{
+        status: `Movie with id:${req.params.movieId} removed from group:${group.id} with success`,
+        group:group
+    }
 }
 
 export async function createUserInternal(req, rsp) {
-        let user = await CMDBServices.createUser(req.query.username, req.query.pwd)
+        let user = await CMDBServices.createUser()
     return {
         status: `User with id ${user.id} created with success`,
         user: user
