@@ -1,4 +1,3 @@
-//TODO implementation only for testing
 import crypto from "node:crypto"
 import {readFile, writeFile} from 'fs/promises'
 import * as imdb from './imdb-movies-data.mjs'
@@ -49,6 +48,12 @@ export async function getGroups(userId) {
     let data = await getData()
     let user = data.users.find(user => user.id === userId)
     return user.groups
+}
+
+export async function getGroup(userId, groupId) {
+    let data = await getData()
+    let user = data.users.find(user => user.id === userId)
+    return user.groups.find(group => group.id === groupId)
 }
 
 export async function deleteGroup(userId, groupId){

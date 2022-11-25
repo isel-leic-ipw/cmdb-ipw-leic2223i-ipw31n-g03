@@ -1,0 +1,272 @@
+{
+	"info": {
+		"_postman_id": "301ac869-ffe7-4159-ad3a-b6c602c9509c",
+		"name": "ipw-cmdb",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/movies/top",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:1500/movies/top",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1500",
+					"path": [
+						"movies",
+						"top"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/movies",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:1500/movies",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1500",
+					"path": [
+						"movies"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "3",
+							"disabled": true
+						},
+						{
+							"key": "title",
+							"value": "lord",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/groups",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:1500/groups",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1500",
+					"path": [
+						"groups"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/groups",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"My Group\",\r\n  \"description\": \"Some Group Description\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:1500/groups",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1500",
+					"path": [
+						"groups"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/groups/{groupId}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:1500/groups/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1500",
+					"path": [
+						"groups",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/groups/{groupId}",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"test 334\",\r\n  \"description\": \"Some Group Description\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:1500/groups/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1500",
+					"path": [
+						"groups",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/groups/{groupId}",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"test 334\",\r\n  \"description\": \"Some Group Description\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:1500/groups/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1500",
+					"path": [
+						"groups",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/groups/{groupId}/{movieId}",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/groups/{groupId}/{movieId}",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create user",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:1500/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1500",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "dac7dfa1-660e-4436-b487-8124ada49f91",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

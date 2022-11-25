@@ -1,5 +1,3 @@
-// Module that contains the functions that handle all HTTP APi requests
-
 import fetch from 'node-fetch'
 
 const Top250Movies = './data/top250movies.json'
@@ -54,11 +52,10 @@ export async function getMoviesTop(limit){
         }
     })
     return results.filter((_,index) => index+1 <= limit)
-
 }
 
-export async function getMovies(q,limit){
-    let URL = Search_URL+q
+export async function getMovies(title,limit){
+    let URL = Search_URL+title
     let rsp = await  fetch(URL)
     let obj = await rsp.json()
     if(obj['errorMessage']!==""){
@@ -73,5 +70,4 @@ export async function getMovies(q,limit){
         }
     })
     return results.filter((_,index) => index+1 <= limit)
-
 }
