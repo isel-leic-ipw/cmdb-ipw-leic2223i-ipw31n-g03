@@ -12,6 +12,14 @@ export async function getUser(userToken) {
     return users.find(user => user.token === userToken)
 }
 
+export async function removeUser(userToken) {
+    let data = await getData()
+    let users = data.users
+    let user = users.find(user => user.token === userToken)
+    users.pop(user)
+    await saveData(data)
+}
+
 export async function createUser() {
     let data = await getData()
     let users = data.users
@@ -89,6 +97,7 @@ export async function updateGroup(userId, groupId,groupDescription){
     let data = await getData()
     let user = data.users.find(user => user.id === userId)
     let group = user.groups.find(group => group.id === groupId)
+    if (!group){ return }
     group.name = groupDescription.name
     group.description = groupDescription.description
     await saveData(data)
@@ -114,6 +123,17 @@ export async function addMovie(userId, groupId, movieId){
     return group
 }
 
+//aux functions
+
+async function getData(){
+    let file = await readFile(UsersFile)
+    return JSON.parse(file)
+}
+
+async function saveData(data){
+    await writeFile(UsersFile, JSON.stringify(data,null, 2))
+}
+
 export async function removeMovie(userId, groupId, movieId){
     let data = await getData()
     let user = data.users.find(user => user.id === userId)
@@ -124,16 +144,6 @@ export async function removeMovie(userId, groupId, movieId){
     group.movies.pop(movie)
     await saveData(data)
     return group
-}
-//aux functions
-
-async function getData(){
-    let file = await readFile(UsersFile)
-    return JSON.parse(file)
-}
-
-async function saveData(data){
-    await writeFile(UsersFile, JSON.stringify(data,null, 2))
 }
 
 
