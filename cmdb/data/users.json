@@ -19,7 +19,7 @@
         {
           "id": 3,
           "name": "acçao",
-          "description": "lista de filmes para ver no fim de semama",
+          "description": "lista de filmes para ver no fim de semana",
           "movies": [
             {
               "id": "tt0167260",

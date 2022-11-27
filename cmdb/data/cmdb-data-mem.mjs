@@ -3,7 +3,8 @@ import {readFile, writeFile} from 'fs/promises'
 import * as imdb from './imdb-movies-data.mjs'
 import errors from "../errors.mjs";
 
-const UsersFile = './data/users.json'
+//const UsersFile = './data/users.json'
+const UsersFile = './cmdb/data/users.json'
 
 export async function getUser(userToken) {
     let data = await getData()
@@ -62,6 +63,7 @@ export async function getGroup(userId,groupId) {
     let data = await getData()
     let user = data.users.find(user => user.id === userId)
     let group = user.groups.find(group => group.id === groupId)
+    if (!group) { return }
     return {
         id:group.id,
         name:group.name,
@@ -76,6 +78,7 @@ export async function deleteGroup(userId, groupId){
     let data = await getData()
     let user = data.users.find(user => user.id === userId)
     let group = user.groups.find(group => group.id === groupId)
+    if (!group){ return }
     user.groups.pop(group)
     await saveData(data)
     return group
@@ -95,7 +98,7 @@ export async function addMovie(userId, groupId, movieId){
     let data = await getData()
     let user = data.users.find(user => user.id === userId)
     let group = user.groups.find(group => group.id === groupId)
-    if(group===undefined){
+    if(!group){
         return
     }
     let movieImdb = await imdb.getMovie(movieId)
