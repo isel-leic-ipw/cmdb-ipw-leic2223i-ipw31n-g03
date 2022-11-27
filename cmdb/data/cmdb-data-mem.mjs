@@ -1,6 +1,7 @@
 import crypto from "node:crypto"
 import {readFile, writeFile} from 'fs/promises'
 import * as imdb from './imdb-movies-data.mjs'
+import errors from "../errors.mjs";
 
 const UsersFile = './data/users.json'
 
@@ -39,22 +40,37 @@ export async function createGroup(userId, groupRepresentation) {
             }
     groups.push(newGroup)
     await saveData(data)
-    return newGroup
-
-
+    return {
+        id:newGroup.id,
+        name:newGroup.name,
+        description:newGroup.description
+    }
 }
 
 export async function getGroups(userId) {
     let data = await getData()
     let user = data.users.find(user => user.id === userId)
-    return user.groups
+    return user.groups.map(({id,name,description}) => ({
+        id:id,
+        name:name,
+        description:description
+    }))
 }
 
-export async function getGroup(userId, groupId) {
+
+export async function getGroup(userId,groupId) {
     let data = await getData()
     let user = data.users.find(user => user.id === userId)
-    return user.groups.find(group => group.id === groupId)
+    let group = user.groups.find(group => group.id === groupId)
+    return {
+        id:group.id,
+        name:group.name,
+        description:group.description,
+        totalDuration:group.movies.reduce((accumulator, currentValue) => accumulator + currentValue.duration,0),
+        movies:group.movies
+    }
 }
+
 
 export async function deleteGroup(userId, groupId){
     let data = await getData()
@@ -79,8 +95,18 @@ export async function addMovie(userId, groupId, movieId){
     let data = await getData()
     let user = data.users.find(user => user.id === userId)
     let group = user.groups.find(group => group.id === groupId)
-    let movie = await imdb.getMovie(movieId)
-    group.movies.push(movie)
+    if(group===undefined){
+        return
+    }
+    let movieImdb = await imdb.getMovie(movieId)
+    if (!movieImdb) throw errors.MOVIE_NOT_FOUND(movieId)
+    if ( !(group.movies.some(movie=> movie.id === movieId))){
+        group.movies.push(movieImdb)
+    }else{
+        let idx = group.movies.findIndex(movie => movie.id === movieId )
+        group.movies[idx] = movieImdb
+    }
+
     await saveData(data)
     return group
 }
@@ -89,7 +115,9 @@ export async function removeMovie(userId, groupId, movieId){
     let data = await getData()
     let user = data.users.find(user => user.id === userId)
     let group = user.groups.find(group => group.id === groupId)
+    if (group === undefined) return
     let movie = group.movies.find(movie => movie.id === movieId)
+    if (movie === undefined) throw errors.MOVIE_NOT_FOUND(movieId)
     group.movies.pop(movie)
     await saveData(data)
     return group

@@ -65,6 +65,7 @@ paths:
           description: Pass an optional search string for looking up Movies with that title
           schema:
             type: string
+          required: true
         - name: limit
           in: query
           description: Maximum number of Movies to return
@@ -503,10 +504,7 @@ components:
     Movie:
       required:
       - id
-      - rank
       - title
-      - rating
-      - ratingCount
       type: object
       properties:
         id:
@@ -518,6 +516,12 @@ components:
         title:
           type: string
           example: The Shawshank Redemption
+        year:
+          type: integer
+          example: 1994
+        duration:
+            type: integer
+            example: 142
         rating:
           type: number
           example: 9.2
@@ -539,13 +543,13 @@ components:
         description:
           type: string
           example: Some Group description
+        totalDuration:
+          type: integer
+          example: 120
         movies:
           type: array
           items:
             $ref: '#/components/schemas/Movie'
-        totalDuration:
-          type: integer
-          example: 120
     NewGroup:
       required:
         - id

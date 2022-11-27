@@ -17,5 +17,11 @@ export default {
             code: 3,
             message: `Group with id ${groupId} not found`
         }
+    },
+    MOVIE_NOT_FOUND: (movieId) => {
+        return {
+            code: 4,
+            message: `movie with id ${movieId} not found`
+        }
     }
 }

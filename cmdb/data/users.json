@@ -22,19 +22,25 @@
           "description": "lista de filmes para ver no fim de semama",
           "movies": [
             {
-              "id": "tt0468569",
-              "title": "The Dark Knight",
-              "originalTitle": "",
-              "fullTitle": "The Dark Knight (2008)",
-              "type": "Movie",
-              "year": 2008,
-              "releaseDate": "2008-07-18",
-              "runtimeMins": 152,
-              "runtimeStr": "2h 32min",
-              "writers": "Jonathan Nolan, Christopher Nolan, David S. Goyer",
-              "stars": "Christian Bale, Heath Ledger, Aaron Eckhart",
-              "genres": "Action, Crime, Drama",
-              "imDbRating": 9
+              "id": "tt0167260",
+              "title": "The Lord of the Rings: The Return of the King",
+              "year": 2003,
+              "duration": 201,
+              "rating": 9
+            },
+            {
+              "id": "tt0111161",
+              "title": "The Shawshank Redemption",
+              "year": 1994,
+              "duration": 142,
+              "rating": 9.3
+            },
+            {
+              "id": "tt0107290",
+              "title": "Jurassic Park",
+              "year": 1993,
+              "duration": 127,
+              "rating": 8.2
             }
           ]
         }
