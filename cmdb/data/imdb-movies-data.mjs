@@ -1,4 +1,5 @@
 import fetch from 'node-fetch'
+import {readFile} from "fs/promises";
 
 const Top250Movies = './data/top250movies.json'
 
@@ -16,22 +17,26 @@ export async function getMovie(movieId){
     return {
         id:obj['id'],
         title:obj['title'],
+        description:obj['plot'],
+        image_url:obj['image_url'],
         year:Number(obj['year']),
         duration:Number(obj['runtimeMins']),
+        directors:obj['directors'],
+        actors:obj['actorList'],
         rating:Number(obj['imDbRating'])
     }
 }
 
 export async function getMoviesTop(limit){
-    // let file = await readFile(Top250Movies)
-    // file = JSON.parse(file)
-    // let result = file.items.filter((_,index) => index+1 <= limit  )
-    // return result
-    let rsp = await  fetch(Top250_URL)
+     let file = await readFile(Top250Movies)
+     file = JSON.parse(file)
+     let result = file.items.filter((_,index) => index+1 <= limit  )
+     return result
+    /*let rsp = await  fetch(Top250_URL)
     let obj = await rsp.json()
     if(obj['errorMessage']!==""){
         return
-    }
+    }*/
     let results = obj['items'].map(movie =>{
         return {
             id: movie['id'],

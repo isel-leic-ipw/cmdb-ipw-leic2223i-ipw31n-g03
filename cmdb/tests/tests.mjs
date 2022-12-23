@@ -7,7 +7,7 @@ import cors from 'cors'
 import * as data from '../data/imdb-movies-data.mjs'
 import * as userData from '../data/cmdb-data-mem.mjs'
 import servicesInt from '../services/cmdb-services.mjs'
-import apiInit from '../api/cmdb-web-api.mjs'
+import apiInit from '../web/api/cmdb-web-api.mjs'
 
 const expect = chai.expect
 const should = chai.should()

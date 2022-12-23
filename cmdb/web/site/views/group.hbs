@@ -1,0 +1,8 @@
+<p><a href="./">< back to groups</a></p>
+<h2>{{group.name}}</h2>
+<p>Description:{{group.description}}</p>
+<h2>Movies:</h2>
+{{#each group.movies}}
+    {{> movie}}
+    <hr>
+{{/each}}

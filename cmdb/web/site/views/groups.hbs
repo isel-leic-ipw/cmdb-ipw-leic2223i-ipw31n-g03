@@ -1,0 +1,12 @@
+
+<h2>{{title}}</h2>
+<a class="btn btn-primary btn-lg" href="/site/groups/new" role="button">Create a new group</a>
+    {{#each groups}}
+        {{> groupPartial}}
+        <a class="btn btn-outline-info" href="/site/groups/{{id}}" role="button">Group Details</a>
+        <form method="post" action="/site/groups/{{id}}/del">
+            <button type="submit" class="btn btn-outline-danger">Delete Group</button>
+        </form>
+        <hr>
+    {{/each}}
+

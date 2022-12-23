@@ -1,8 +1,8 @@
-// Module that contains the functions that handle all HTTP API requests
+// Module that contains the functions that handle all HTTP site requests
 
-import toHttpResponse from './cmdb-response-errors.mjs'
+import toHttpResponse from '../cmdb-response-errors.mjs'
 import { BEARER, AUTHORIZATION } from './cmdb-api-constants.mjs'
-import errors from "../errors.mjs";
+import errors from "../../errors.mjs";
 
 export default function (services) {
     if (!services) {

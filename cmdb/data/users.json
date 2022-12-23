@@ -43,6 +43,12 @@
               "rating": 8.2
             }
           ]
+        },
+        {
+          "id": 4,
+          "name": "BattleShip",
+          "description": "hhh",
+          "movies": []
         }
       ]
     },

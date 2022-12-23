@@ -2,9 +2,10 @@ import crypto from "node:crypto"
 import {readFile, writeFile} from 'fs/promises'
 import * as imdb from './imdb-movies-data.mjs'
 import errors from "../errors.mjs";
+import url from "url";
 
-//const UsersFile = './data/users.json'
-const UsersFile = './cmdb/data/users.json'
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+const UsersFile = `${__dirname}/users.json`
 
 export async function getUser(userToken) {
     let data = await getData()
@@ -59,10 +60,11 @@ export async function createGroup(userId, groupRepresentation) {
 export async function getGroups(userId) {
     let data = await getData()
     let user = data.users.find(user => user.id === userId)
-    return user.groups.map(({id,name,description}) => ({
+    return user.groups.map(({id,name,description,movies}) => ({
         id:id,
         name:name,
-        description:description
+        description:description,
+        movies:movies
     }))
 }
 
