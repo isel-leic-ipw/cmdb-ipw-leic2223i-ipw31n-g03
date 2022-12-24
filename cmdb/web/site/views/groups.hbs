@@ -1,10 +1,11 @@
 
-<h2>{{title}}</h2>
-<a class="btn btn-primary btn-lg" href="/site/groups/new" role="button">Create a new group</a>
+<div class="text-center" style="margin-top: 20px;margin-bottom: 10px">
+    <a href="./groups/new" class="btn btn-primary" role="button" aria-disabled="true">Create a new group</a>
+</div>
     {{#each groups}}
         {{> groupPartial}}
-        <a class="btn btn-outline-info" href="/site/groups/{{id}}" role="button">Group Details</a>
-        <form method="post" action="/site/groups/{{id}}/del">
+        <a class="btn btn-outline-info" href="./groups/{{id}}" role="button">Group Details</a>
+        <form method="post" action="./groups/{{id}}/del">
             <button type="submit" class="btn btn-outline-danger">Delete Group</button>
         </form>
         <hr>

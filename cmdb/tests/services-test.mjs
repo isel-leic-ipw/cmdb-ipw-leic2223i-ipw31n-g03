@@ -3,8 +3,8 @@ import chaiAsPromised from 'chai-as-promised'
 chai.use(chaiAsPromised)
 chai.should()
 
-import * as moviesData from '../data/imdb-movies-data.mjs'
-import * as userData from '../data/cmdb-data-mem.mjs'
+import * as moviesData from '../data/common/imdb-movies-data.mjs'
+import * as userData from '../data/mem/cmdb-data-mem.mjs'
 import servicesInit from '../services/cmdb-services.mjs'
 import errors from "../errors.mjs";
 

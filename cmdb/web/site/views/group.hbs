@@ -1,8 +1,14 @@
 <p><a href="./">< back to groups</a></p>
 <h2>{{group.name}}</h2>
 <p>Description:{{group.description}}</p>
+<div class="text-center" style="margin-top: 20px;margin-bottom: 10px">
+    <a href="/site/groups/{{group.id}}/update" class="btn btn-primary" role="button" aria-disabled="true">Edit Group</a>
+    <form method="post" action="/site/groups/{{group.id}}/del">
+        <button type="submit" class="btn btn-outline-danger">Delete Group</button>
+    </form>
+</div>
 <h2>Movies:</h2>
 {{#each group.movies}}
-    {{> movie}}
+    {{> movieSummary}}
     <hr>
 {{/each}}

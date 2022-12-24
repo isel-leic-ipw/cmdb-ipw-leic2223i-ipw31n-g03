@@ -11,19 +11,19 @@ export async function getMovie(movieId){
     let URL = Title_details_URL+movieId
     let rsp = await  fetch(URL)
     let obj = await rsp.json()
-    if(obj['errorMessage']!==null){
+    if(obj['errorMessage']!=="" ){
         return
     }
     return {
-        id:obj['id'],
-        title:obj['title'],
-        description:obj['plot'],
-        image_url:obj['image_url'],
-        year:Number(obj['year']),
-        duration:Number(obj['runtimeMins']),
-        directors:obj['directors'],
-        actors:obj['actorList'],
-        rating:Number(obj['imDbRating'])
+            id: obj['id'],
+            title: obj['title'],
+            description: obj['plot'],
+            image: obj['image'],
+            year: Number(obj['year']),
+            duration: Number(obj['runtimeMins']),
+            directors: obj['directors'],
+            actors: obj['actorList'],
+            rating: Number(obj['imDbRating'])
     }
 }
 
@@ -42,12 +42,13 @@ export async function getMoviesTop(limit){
             id: movie['id'],
             rank:Number(movie['rank']),
             title: movie['title'],
+            image: movie['image'],
             year: Number(movie['year']),
             rating: Number(movie['imDbRating']),
             ratingCount: Number(movie['imDbRatingCount'])
         }
     })
-    return results.filter((_,index) => index+1 <= limit)
+    return {movies:results.filter((_,index) => index+1 <= limit)}
 }
 
 export async function getMovies(title,limit){
@@ -60,8 +61,9 @@ export async function getMovies(title,limit){
     let results = obj['results'].map(movie =>{
         return {
             id: movie['id'],
+            image:movie['image'],
             title: movie['title']
         }
     })
-    return results.filter((_,index) => index+1 <= limit)
+    return {movies:results.filter((_,index) => index+1 <= limit)}
 }

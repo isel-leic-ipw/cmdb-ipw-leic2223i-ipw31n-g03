@@ -1,7 +1,8 @@
 <h2>{{title}}</h2>
-<p>rank:{{rank}}</p>
-<p>Rating:{{rating}}</p>
-<p>Year:{{year}}</p>
-<form action="/sites//groups/:groupId/:movieId/add" method="post">
-
+<p>id:{{id}}</p>
+<p>image:{{image}}</p>
+<p>title:{{title}}</p>
+<img src={{image}} alt={{image}} width="80" height="128">
+<form action="/sites/groups/:movieId/add" method="get">
+    <button type="submit" class="btn btn-outline-info">Add Movie</button>
 </form>

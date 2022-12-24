@@ -1,7 +1,7 @@
 import crypto from "node:crypto"
 import {readFile, writeFile} from 'fs/promises'
-import * as imdb from './imdb-movies-data.mjs'
-import errors from "../errors.mjs";
+import * as imdb from '../common/imdb-movies-data.mjs'
+import errors from "../../errors.mjs";
 import url from "url";
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
@@ -89,7 +89,8 @@ export async function deleteGroup(userId, groupId){
     let user = data.users.find(user => user.id === userId)
     let group = user.groups.find(group => group.id === groupId)
     if (!group){ return }
-    user.groups.pop(group)
+    let idx = user.groups.indexOf(group)
+    user.groups.splice(idx,1)
     await saveData(data)
     return group
 

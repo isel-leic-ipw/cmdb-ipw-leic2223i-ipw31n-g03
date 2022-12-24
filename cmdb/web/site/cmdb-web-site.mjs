@@ -1,9 +1,9 @@
 // Module that contains the functions that handle all HTTP site requests
-
-
-
 import errors from "../../errors.mjs";
 import toHttpResponse from "../cmdb-response-errors.mjs";
+import handleRequest from "../common/cmdb-handler.mjs"
+import {  RENDER,REDIRECTED } from './cmdb-site-constants.mjs'
+import * as cmdbFunction from "../common/cmdb-common-function.mjs"
 
 function View(name,data){
     this.name = name
@@ -15,26 +15,87 @@ export default function (services) {
         throw errors.INVALID_PARAMETER('services')
     }
     return {
-        getMovie: handleRequest(getMovie),
-        getMoviesTop:handleRequest(getMoviesTop),
-        createGroupForm:createGroupForm,
-        getGroups:handleRequest(getGroups) ,
-        createGroup:handleRequest(createGroup),
-        getGroup:handleRequest(getGroup),
-        deleteGroup:handleRequest(deleteGroup),
-        addMovie:handleRequest(addMovie),
-        removeMovie:handleRequest(removeMovie)
+        getMovie: handleRequest(getMovie,RENDER,false),
+        addMovieForm:handleRequest(addMovieForm,RENDER,false),
+        getMovies: handleRequest(getMovies,RENDER,false),
+        getMoviesTop:handleRequest(getMoviesTop,RENDER,false),
+        createGroupForm:handleRequest(createGroupForm,RENDER,false),
+        getGroups:handleRequest(getGroups,RENDER,false) ,
+        createGroup:handleRequest(createGroup,REDIRECTED,false),
+        getGroup:handleRequest(getGroup,RENDER,false),
+        deleteGroup:handleRequest(deleteGroup,REDIRECTED,false),
+        updateGroup:handleRequest(updateGroup,REDIRECTED,false),
+        updateGroupForm:handleRequest(updateGroupForm,RENDER,false),
+        addMovie:handleRequest(addMovie,RENDER,false),
+        removeMovie:handleRequest(removeMovie,RENDER,false),
+        verifyAuth:verifyAuth,
+        validateLogin:validateLogin,
+        logout:logout,
+        loginForm:handleRequest(loginForm,RENDER,false),
+        home:handleRequest(home,RENDER,false),
+        homeAuth:homeAuth
+    }
+    function verifyAuth(req, rsp, next) {
+        console.log("verifyAuthenticated", req.user)
+        if(req.user) {
+            console.log("$$$$$$$$$$$$$$$$$")
+            return next()
+        }
+        console.log("#################")
+        rsp.redirect('site/login')
+    }
+    function logout(req, rsp) {
+        req.logout((err) => {
+            rsp.redirect('site/home')
+        })
+    }
+    function home(req, rsp) {
+        let user = req.user ? req.user.username : "unknown"
+        if(user !== "unknown"){
+            return  getGroups(req, rsp)
+        }
+        return new View('home',{title:`Home Page`,username:user})
+    }
+    function homeAuth(req, rsp) {
+        console.log("homeAuthenticated - ", req.user)
+        const user = req.user.username
+        if (user) rsp.redirect(`/site/auth/groups`)
+        else rsp.redirect(`/site/home`)
+    }
+    function validateLogin(req, rsp) {
+        console.log("validateLogin")
+        if(validateUser(req.body.username, req.body.password)) {
+            const user = {
+                username: req.body.username,
+                dummy: "dummy property on user"
+            }
+            console.log(user)
+            req.login(user, () => rsp.redirect('./auth/home'))
+        }
+        function validateUser(username, password) { return true }
+    }
+
+    async function addMovieForm(req, rsp){
+
+    }
+    async function getMovies(req, rsp) {
+        let movies = await services.getMovies(req.query.title, req.query.limit)
+        return new View('moviesList',{title:`Movies List`,movies:movies})
     }
     async function getMovie(req, rsp) {
-        let movies = await services.getMovies(req.query.title, req.query.limit)
-        return new View('movie',{title:`movies`,movies:movies})
+        let movie = await services.getMovies(req.query.title, req.query.limit)
+        return new View('moviesList',{title:`Movies List`,movie:movie})
     }
     async function createGroupForm(req, rsp) {
-        rsp.render('newGroup')
+       return new View('newGroup',{title:`New Group`,buttonText:'Create Group',action:`/site/groups`})
+    }
+    async function loginForm(req, rsp){
+        let user = req.user
+        return new View('login',{title:`Login`,user:user})
     }
     async function getMoviesTop(req, rsp) {
         let moviesTop = await services.getMoviesTop(req.query.limit)
-        return new View('movies_top',{title:`List of movies Top`,moviesTop:moviesTop})
+        return new View('movies_top',{title:`List of movies Top`,movies:moviesTop})
     }
     async function getGroups(req, rsp) {
         let groups = await services.getGroups(req.token)
@@ -45,11 +106,19 @@ export default function (services) {
         return new View('group',{title:`Group`,group:group})
     }
     async function createGroup(req, rsp) {
-        let newGroup = await services.createGroup(req.token, {name:req.body.name,description:req.body.description})
-        rsp.redirect(`/site/groups/${newGroup.id}`)
+        await services.createGroup(req.token, {name:req.body.name,description:req.body.description})
+        rsp.redirect(`/site/groups`)
+    }
+    async function updateGroup(req, rsp) {
+        let editedGroup = await services.updateGroup(req.token,req.params.groupId, {name:req.body.name,description:req.body.description})
+        rsp.redirect(`/site/groups/${editedGroup.id}`)
+    }
+    async function updateGroupForm(req, rsp) {
+        let group = await services.getGroup(req.token,req.params.groupId)
+        return new View('newGroup',{title:`Update Group`,group:group,buttonText:'Update Group',action:`/site/groups/${group.id}/update`})
     }
     async function deleteGroup(req, rsp) {
-        await services.deleteGroup(req.token)
+        await services.deleteGroup(req.token,req.params.groupId)
         rsp.redirect(`/site/groups`)
     }
     async function addMovie(req, rsp) {
@@ -61,16 +130,6 @@ export default function (services) {
         rsp.render('groups',groups)
     }
 
-    function handleRequest(handler) {
-        return async function (req, rsp) {
-            req.token = 'dac7dfa1-660e-4436-b487-8124ada49f91'
-            try {
-              let view = await handler(req, rsp)
-                if (view){rsp.render(view.name,view.data)}
-            } catch(e) {
-                const response = toHttpResponse(e)
-                rsp.status(response.status).json({ error: response.body })
-            }
-        }
-    }
+
+
 }

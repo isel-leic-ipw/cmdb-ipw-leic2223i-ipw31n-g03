@@ -1,48 +1,48 @@
 // Module that contains the functions that handle all HTTP site requests
-
-import toHttpResponse from '../cmdb-response-errors.mjs'
-import { BEARER, AUTHORIZATION } from './cmdb-api-constants.mjs'
+import { JSON } from './cmdb-api-constants.mjs'
 import errors from "../../errors.mjs";
+import handleRequest from "../common/cmdb-handler.mjs"
+
 
 export default function (services) {
     if (!services) {
         throw errors.INVALID_PARAMETER('services')
     }
     return {
-        getMoviesTop: handleRequest(getMoviesTopInternal),
-        getMovies: handleRequest(getMoviesInternal),
-        getGroup: handleRequestWithAuth(getGroupInternal),
-        createGroup: handleRequestWithAuth(createGroupInternal),
-        updateGroup: handleRequestWithAuth(updateGroupInternal),
-        deleteGroup: handleRequestWithAuth(deleteGroupInternal),
-        getGroups: handleRequestWithAuth(getGroupsInternal),
-        addMovie: handleRequestWithAuth(addMovieInternal),
-        removeMovie: handleRequestWithAuth(removeMovieInternal),
-        createUser: handleRequest(createUserInternal)
+        getMoviesTop: handleRequest(getMoviesTop,JSON,false),
+        getMovies: handleRequest(getMovies,JSON,false),
+        getGroup: handleRequest(getGroup,JSON),
+        createGroup: handleRequest(createGroup,JSON),
+        updateGroup: handleRequest(updateGroup,JSON),
+        deleteGroup: handleRequest(deleteGroup,JSON),
+        getGroups: handleRequest(getGroups,JSON),
+        addMovie: handleRequest(addMovie,JSON),
+        removeMovie: handleRequest(removeMovie,JSON),
+        createUser: handleRequest(createUser,JSON,false)
     }
 
-    async function getMoviesTopInternal(req, rsp) {
+    async function getMoviesTop(req, rsp) {
         let moviesTop = await services.getMoviesTop(req.query.limit)
         return {
             movies: moviesTop
         }
     }
 
-    async function getMoviesInternal(req, rsp) {
+    async function getMovies(req, rsp) {
         let movies = await services.getMovies(req.query.title, req.query.limit)
         return {
             movies: movies
         }
     }
 
-    async function getGroupInternal(req, rsp) {
+    async function getGroup(req, rsp) {
         let group =  await services.getGroup(req.token, req.params.groupId)
         return {
             group: group
         }
     }
 
-    async function createGroupInternal(req, rsp) {
+    async function createGroup(req, rsp) {
         let newGroup = await services.createGroup(req.token, req.body)
         rsp.status(201)
         return {
@@ -51,7 +51,7 @@ export default function (services) {
         }
     }
 
-    async function updateGroupInternal(req, rsp) {
+    async function updateGroup(req, rsp) {
         let group = await services.updateGroup(req.token, req.params.groupId, req.body)
         return {
             status: `Group with id ${group.id} updated with success`,
@@ -59,7 +59,7 @@ export default function (services) {
         }
     }
 
-    async function deleteGroupInternal(req, rsp) {
+    async function deleteGroup(req, rsp) {
         let group = await services.deleteGroup(req.token, req.params.groupId)
         return {
             status: `Group with id ${group.id} deleted with success`,
@@ -67,14 +67,14 @@ export default function (services) {
         }
     }
 
-    async function getGroupsInternal(req, rsp) {
+    async function getGroups(req, rsp) {
         let groups = await services.getGroups(req.token)
         return {
             groups: groups
         }
     }
 
-    async function addMovieInternal(req, rsp) {
+    async function addMovie(req, rsp) {
         let group = await services.addMovie(req.token, req.params.groupId, req.params.movieId)
         return{
             status: `Movie with id: ${req.params.movieId} added to group: ${group.id} with success`,
@@ -82,7 +82,7 @@ export default function (services) {
         }
     }
 
-    async function removeMovieInternal(req, rsp) {
+    async function removeMovie(req, rsp) {
         let group = await services.removeMovie(req.token, req.params.groupId, req.params.movieId)
         return{
             status: `Movie with id: ${req.params.movieId} removed from group: ${group.id} with success`,
@@ -90,47 +90,12 @@ export default function (services) {
         }
     }
 
-    async function createUserInternal(req, rsp) {
+    async function createUser(req, rsp) {
         let user = await services.createUser()
         rsp.status(201)
         return {
             status: `User with id ${user.id} created with success`,
             user: user
-        }
-    }
-
-    function handleRequestWithAuth(handler) {
-        return async function (req, rsp) {
-            let tokenHeader = req.get(AUTHORIZATION)
-            if (!(tokenHeader && tokenHeader.startsWith(BEARER) && tokenHeader.length > BEARER.length)) {
-                rsp.status(401).json({
-                    error: {
-                        message: "Invalid or missing token"
-                    }
-                })
-                return
-            }
-            req.token = tokenHeader.split(" ")[1]
-
-            try {
-                let body = await handler(req, rsp)
-                rsp.json(body)
-            } catch(e) {
-                const response = toHttpResponse(e)
-                rsp.status(response.status).json({ error: response.body })
-            }
-        }
-    }
-
-    function handleRequest(handler) {
-        return async function (req, rsp) {
-            try {
-                let body = await handler(req, rsp)
-                rsp.json(body)
-            } catch(e) {
-                const response = toHttpResponse(e)
-                rsp.status(response.status).json({ error: response.body })
-            }
         }
     }
 }
