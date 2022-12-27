@@ -1,8 +1,24 @@
-<h2>{{title}}</h2>
-<p>id:{{id}}</p>
-<p>image:{{image}}</p>
-<p>title:{{title}}</p>
-<img src={{image}} alt={{image}} width="80" height="128">
-<form action="/sites/groups/:movieId/add" method="get">
-    <button type="submit" class="btn btn-outline-info">Add Movie</button>
-</form>
+<div class="container">
+    <div class="d-flex flex-row">
+        <div class="col-md-auto">
+            <a href={{image}}> <img src={{image}} style="margin-right: 20px " alt={{image}} width="160" height="256"></a>
+        </div>
+        <div class="d-flex flex-column align-items-start">
+            {{#if title}}
+                <h1>{{title}}</h1>
+            {{/if}}
+            {{#if id}}
+            <div class="p-2">id:{{id}}</div>
+            {{/if}}
+            {{#if description}}
+            <div class="p-2">Description:{{description}}</div>
+            {{/if}}
+            {{#if rating}}
+            <div class="p-2">Rating:{{rating}}</div>
+            {{/if}}
+            {{#if duration}}
+            <div class="p-2">Duration:{{duration}}</div>
+            {{/if}}
+        </div>
+    </div>
+</div>

@@ -6,7 +6,7 @@ export default function handleRequest(handler,option,auth=true) {
 
     return async function (req, rsp, next) {
         if(auth){
-        let tokenHeader = req.get(AUTHORIZATION)
+        let tokenHeader = req.get(AUTHORIZATION) || req.user.token
         if (!(tokenHeader && tokenHeader.startsWith(BEARER) && tokenHeader.length > BEARER.length)) {
             rsp.status(401).json({
                 error: {
@@ -17,7 +17,9 @@ export default function handleRequest(handler,option,auth=true) {
         }
         req.token = tokenHeader.split(" ")[1]
         }
-        else  req.token = 'dac7dfa1-660e-4436-b487-8124ada49f91'
+        else {
+                if (req.user) req.token = req.user.token
+        }
         try {
             let body = await handler(req, rsp)
             if(body || option === REDIRECTED) {

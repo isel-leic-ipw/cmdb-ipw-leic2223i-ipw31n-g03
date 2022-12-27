@@ -1,0 +1,29 @@
+<div class="d-flex justify-content-between">
+    <a href="./" class="btn-secondary">< back to group</a>
+    <form method="post" action="/site/auth/groups/{{groupId}}/{{movie.id}}/del">
+        <button type="submit" class="btn-warning">Delete Movie</button>
+    </form>
+</div>
+<div class="container">
+    <div class="d-flex flex-row">
+        <div class="col-md-auto">
+            <a href={{image}}><img src={{movie.image}} alt="Imdb" width="300" height="450"/></a>
+        </div>
+        <div class="d-flex flex-row align-items-center">
+        <div class="d-flex flex-column align-items-start">
+            <div class="p-2">Description:{{movie.description}}</div>
+            <div class="p-2">Rating:{{movie.rating}}</div>
+            <div class="p-2">Year:{{movie.year}}</div>
+            <div class="p-2">Duration:{{movie.duration}}</div>
+            <div class="p-2">Directors:{{movie.directors}}</div>
+        </div>
+    </div>
+    </div>
+    <div class="row">
+{{#each movie.actors}}
+<div class="card">
+    {{> actor}}
+</div>
+{{/each}}
+    </div>
+</div>

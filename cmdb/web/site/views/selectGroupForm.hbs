@@ -1,0 +1,47 @@
+<div class="container-fluid">
+    <div class="p-2"></div>
+<form action="./{{movie.id}}/add" method="get">
+    <div class="d-flex flex-row">
+    <div class="form-group" style="width: 50%">
+        <label for="groupId">Select Group:</label>
+        <select class="form-select" aria-label=".form-select-lg example" id="groupId" name="groupId">
+            <label for="groupId">Select Group</label>
+            {{#each groups}}
+                <option value={{id}} name="groupId">{{name}}</option>
+            {{/each}}
+        </select>
+    </div>
+        <div class="p-2"></div>
+        <a class="btn btn-primary" style="margin-top: 20px" type="submit" role="button" aria-disabled="true">Confirm</a>
+    </div>
+    <div class="p-2"></div>
+</form>
+    <div class="card">
+    <div class="d-flex flex-row">
+        <div class="col-md-auto">
+            <a href={{movie.image}}><img src={{movie.image}} alt="Imdb" width="300" height="450" style="margin-left: 20px;padding-bottom: 20px;padding-top: 20px"/></a>
+        </div>
+        <div class="d-flex flex-row align-items-center">
+            <div class="d-flex flex-column align-items-start">
+                <div class="p-2">Description:{{movie.description}}</div>
+                <div class="p-2">Rating:{{movie.rating}}</div>
+                <div class="p-2">Year:{{movie.year}}</div>
+                <div class="p-2">Duration:{{movie.duration}}</div>
+                <div class="p-2">Directors:{{movie.directors}}</div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="p-2"></div>
+    <div class="row">
+        <h5>Cast:</h5>
+        {{#each movie.actors}}
+        <div class="card">
+            <div class="p-2"></div>
+            <p>Name:{{actor}}</p>
+            <p>Character:{{character}}</p>
+        </div>
+            <div class="p-2"></div>
+        {{/each}}
+    </div>
+</div>

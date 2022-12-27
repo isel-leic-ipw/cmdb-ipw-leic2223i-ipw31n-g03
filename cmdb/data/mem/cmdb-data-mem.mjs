@@ -12,6 +12,20 @@ export async function getUser(userToken) {
     let users = data.users
     return users.find(user => user.token === userToken)
 }
+export async function getUserWeb(username,password) {
+    let data = await getData()
+    let users = data.users
+    let user = users.find(user => user.username === username)
+    if(user.password === password) return user
+}
+
+export async function getMovieDetails(userId,groupId,movieId){
+    let data = await getData()
+    let user = data.users.find(user => user.id === userId)
+    let group = user.groups.find(group => group.id === groupId)
+    let movie = group.movies.find(movie => movie.id === movieId)
+    return movie
+}
 
 export async function removeUser(userToken) {
     let data = await getData()
@@ -144,7 +158,8 @@ export async function removeMovie(userId, groupId, movieId){
     if (group === undefined) return
     let movie = group.movies.find(movie => movie.id === movieId)
     if (movie === undefined) throw errors.MOVIE_NOT_FOUND(movieId)
-    group.movies.pop(movie)
+    let idx = group.movies.indexOf(movie)
+    group.movies.splice(idx,1)
     await saveData(data)
     return group
 }

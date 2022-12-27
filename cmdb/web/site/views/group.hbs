@@ -1,14 +1,32 @@
-<p><a href="./">< back to groups</a></p>
-<h2>{{group.name}}</h2>
-<p>Description:{{group.description}}</p>
-<div class="text-center" style="margin-top: 20px;margin-bottom: 10px">
-    <a href="/site/groups/{{group.id}}/update" class="btn btn-primary" role="button" aria-disabled="true">Edit Group</a>
-    <form method="post" action="/site/groups/{{group.id}}/del">
-        <button type="submit" class="btn btn-outline-danger">Delete Group</button>
+<div class="p-2"></div>
+<p><a href="/site/auth/groups" class="btn btn-secondary">< back to groups</a></p>
+<div class="container">
+<div class="d-flex d-flex justify-content-between">
+<div class="p-2">
+    <h3>{{group.description}}</h3>
+    <h4>Total Duration: {{group.totalDuration}} mins</h4>
+</div>
+    <div class="d-flex flex-row align-items-center">
+        <div class="p-1"></div>
+    <a href="/site/auth/groups/{{group.id}}/update" class="btn btn-primary" role="button" aria-disabled="true">Edit Group</a>
+        <div class="p-1"></div>
+    <form method="post" action="/site/auth/groups/{{group.id}}/del">
+        <button type="submit" class="btn btn-danger">Delete Group</button>
     </form>
+    </div>
 </div>
 <h2>Movies:</h2>
 {{#each group.movies}}
+<div class="card">
+    <div class="p-2"></div>
     {{> movieSummary}}
-    <hr>
+    <a href="/site/auth/groups/{{../group.id}}/{{id}}"
+       class="btn btn-primary"
+       role="button"
+       aria-disabled="true"
+       style="margin-left: 20px;margin-top: 20px;margin-bottom: 20px;width: fit-content"
+    >Movie Details</a>
+</div>
 {{/each}}
+
+</div>

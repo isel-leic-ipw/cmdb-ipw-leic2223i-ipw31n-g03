@@ -1,5 +1,6 @@
 
 {{#each movies}}
     {{> movieSummary}}
+    <a href="/site/auth/movies/{{id}}" class="btn btn-outline-success" role="button" aria-disabled="true">add Movie</a>
     <hr>
 {{/each}}

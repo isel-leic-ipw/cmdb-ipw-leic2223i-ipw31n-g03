@@ -78,6 +78,7 @@ app.post(`${apiPrefix}/users`, api.createUser)
 console.log(__dirname)
 app.use(`${sitePrefix}/files`,express.static(`${__dirname}./static-files`,{redirect:false}))
 //Movies
+app.get(`${sitePrefix}/auth/movies/search`,site.searchMovieForm)
 app.get(`${sitePrefix}/movies`,site.getMovies)
 app.get(`${sitePrefix}/movies/top`,site.getMoviesTop)
 //Group
@@ -87,8 +88,9 @@ app.post(`${sitePrefix}/auth/groups/:groupId/update`,site.updateGroup)
 app.get(`${sitePrefix}/auth/groups/:groupId/update`,site.updateGroupForm)
 app.get(`${sitePrefix}/auth/groups/:groupId`,site.getGroup)
 // Movie in Group
-app.post(`${sitePrefix}/auth/groups/:groupId/:movieId/add`,site.addMovie)
-app.get(`${sitePrefix}/auth/groups/:movieId/add`,site.addMovieForm)
+app.get(`${sitePrefix}/auth/groups/:groupId/:movieId`,site.getMovieDetails)
+app.get(`${sitePrefix}/auth/movies/:movieId`,site.getAddMovieForm)
+app.get(`${sitePrefix}/auth/movies/:movieId/add`,site.addMovie)
 app.post(`${sitePrefix}/auth/groups/:groupId/:movieId/del`,site.removeMovie)
 //Groups
 app.get(`${sitePrefix}/auth/groups`,site.getGroups)

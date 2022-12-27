@@ -2,12 +2,14 @@
   "users": [
     {
       "id": 1,
+      "username": "sergiozorro",
+      "password": "aaa",
       "token": "dac7dfa1-660e-4436-b487-8124ada49f91",
       "groups": [
         {
           "id": 1,
           "name": "teste1",
-          "description": "         \r\n        ",
+          "description": "Adicionada descrição\r\n        ",
           "movies": [
             {
               "id": "tt0133093",
@@ -248,6 +250,258 @@
                 }
               ],
               "rating": 8.6
+            },
+            {
+              "id": "tt0198781",
+              "title": "Monsters, Inc.",
+              "description": "In order to power the city, monsters have to scare children so that they scream. However, the children are toxic to the monsters, and after a child gets through, two monsters realize things may not be what they think.",
+              "image": "https://m.media-amazon.com/images/M/MV5BMTY1NTI0ODUyOF5BMl5BanBnXkFtZTgwNTEyNjQ0MDE@._V1_Ratio0.6762_AL_.jpg",
+              "year": 2001,
+              "duration": 92,
+              "directors": "Pete Docter, David Silverman, Lee Unkrich",
+              "actors": [
+                {
+                  "actor": "Billy Crystal",
+                  "character": "Mike"
+                },
+                {
+                  "actor": "John Goodman",
+                  "character": "Sullivan"
+                },
+                {
+                  "actor": "Mary Gibbs",
+                  "character": "Boo"
+                },
+                {
+                  "actor": "Steve Buscemi",
+                  "character": "Randall"
+                },
+                {
+                  "actor": "James Coburn",
+                  "character": "Waternoose"
+                },
+                {
+                  "actor": "Jennifer Tilly",
+                  "character": "Celia"
+                },
+                {
+                  "actor": "Bob Peterson",
+                  "character": "Roz"
+                },
+                {
+                  "actor": "John Ratzenberger",
+                  "character": "Yeti"
+                },
+                {
+                  "actor": "Frank Oz",
+                  "character": "Fungus"
+                },
+                {
+                  "actor": "Daniel Gerson",
+                  "character": "Needleman"
+                },
+                {
+                  "actor": "Steve Susskind",
+                  "character": "Floor Manager"
+                },
+                {
+                  "actor": "Bonnie Hunt",
+                  "character": "Flint"
+                },
+                {
+                  "actor": "Jeff Pidgeon",
+                  "character": "Bile"
+                },
+                {
+                  "actor": "Samuel Lord Black",
+                  "character": "George Sanderson"
+                },
+                {
+                  "actor": "Jack Angel",
+                  "character": "Additional Voices"
+                },
+                {
+                  "actor": "Bob Bergen",
+                  "character": "Schmidt"
+                },
+                {
+                  "actor": "Rodger Bumpass",
+                  "character": "News Anchor"
+                },
+                {
+                  "actor": "Gino Conforti",
+                  "character": "Additional Voices"
+                }
+              ],
+              "rating": 8.1
+            },
+            {
+              "id": "tt0468569",
+              "title": "The Dark Knight",
+              "description": "When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice.",
+              "image": "https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_Ratio0.6762_AL_.jpg",
+              "year": 2008,
+              "duration": 152,
+              "directors": "Christopher Nolan",
+              "actors": [
+                {
+                  "actor": "Christian Bale",
+                  "character": "Bruce Wayne"
+                },
+                {
+                  "actor": "Heath Ledger",
+                  "character": "Joker"
+                },
+                {
+                  "actor": "Aaron Eckhart",
+                  "character": "Harvey Dent"
+                },
+                {
+                  "actor": "Michael Caine",
+                  "character": "Alfred"
+                },
+                {
+                  "actor": "Maggie Gyllenhaal",
+                  "character": "Rachel"
+                },
+                {
+                  "actor": "Gary Oldman",
+                  "character": "Gordon"
+                },
+                {
+                  "actor": "Morgan Freeman",
+                  "character": "Lucius Fox"
+                },
+                {
+                  "actor": "Monique Gabriela Curnen",
+                  "character": "Ramirez"
+                },
+                {
+                  "actor": "Ron Dean",
+                  "character": "Wuertz"
+                },
+                {
+                  "actor": "Cillian Murphy",
+                  "character": "Scarecrow"
+                },
+                {
+                  "actor": "Chin Han",
+                  "character": "Lau"
+                },
+                {
+                  "actor": "Nestor Carbonell",
+                  "character": "Mayor"
+                },
+                {
+                  "actor": "Eric Roberts",
+                  "character": "Maroni"
+                },
+                {
+                  "actor": "Ritchie Coster",
+                  "character": "Chechen"
+                },
+                {
+                  "actor": "Anthony Michael Hall",
+                  "character": "Engel"
+                },
+                {
+                  "actor": "Keith Szarabajka",
+                  "character": "Stephens"
+                },
+                {
+                  "actor": "Colin McFarlane",
+                  "character": "Loeb"
+                },
+                {
+                  "actor": "Joshua Harto",
+                  "character": "Reese"
+                }
+              ],
+              "rating": 9
+            },
+            {
+              "id": "tt2861424",
+              "title": "Rick and Morty",
+              "description": "An animated series that follows the exploits of a super scientist and his not-so-bright grandson.",
+              "image": "https://m.media-amazon.com/images/M/MV5BZjRjOTFkOTktZWUzMi00YzMyLThkMmYtMjEwNmQyNzliYTNmXkEyXkFqcGdeQXVyNzQ1ODk3MTQ@._V1_Ratio0.6762_AL_.jpg",
+              "year": 2013,
+              "duration": 0,
+              "directors": "",
+              "actors": [
+                {
+                  "actor": "Justin Roiland",
+                  "character": "Rick Sanchez"
+                },
+                {
+                  "actor": "Chris Parnell",
+                  "character": "Jerry Smith"
+                },
+                {
+                  "actor": "Spencer Grammer",
+                  "character": "Summer Smith"
+                },
+                {
+                  "actor": "Sarah Chalke",
+                  "character": "Beth Smith"
+                },
+                {
+                  "actor": "Kari Wahlgren",
+                  "character": "Jessica"
+                },
+                {
+                  "actor": "Maurice LaMarche",
+                  "character": "Abradolph Lincler"
+                },
+                {
+                  "actor": "Dan Harmon",
+                  "character": "Birdperson"
+                },
+                {
+                  "actor": "Tom Kenny",
+                  "character": "Squanchy"
+                },
+                {
+                  "actor": "Brandon Johnson",
+                  "character": "Mr. Goldenfold"
+                },
+                {
+                  "actor": "Nolan North",
+                  "character": "Additional Voices"
+                },
+                {
+                  "actor": "Ryan Ridley",
+                  "character": "Additional Voices"
+                },
+                {
+                  "actor": "Cassie Steele",
+                  "character": "Tammy"
+                },
+                {
+                  "actor": "Keith David",
+                  "character": "The President"
+                },
+                {
+                  "actor": "Phil Hendrie",
+                  "character": "Principal Vagina"
+                },
+                {
+                  "actor": "Rob Schrab",
+                  "character": "Alexander"
+                },
+                {
+                  "actor": "Echo Kellum",
+                  "character": "Brad"
+                },
+                {
+                  "actor": "Lee Harting",
+                  "character": ""
+                },
+                {
+                  "actor": "Nick Reczynski",
+                  "character": "Gromflomite Guard #2"
+                }
+              ],
+              "rating": 9.1
             }
           ]
         },
@@ -495,13 +749,97 @@
                 }
               ],
               "rating": 8.6
+            },
+            {
+              "id": "tt0062614",
+              "title": "Zeg 'ns Aaa",
+              "description": "Sitcom related to the daily life of Dr. Lydia van der Ploeg, her children Gert-Jan and Nancy, her surgeon boyfriend Hans Lansberg, and her close neighbors.",
+              "image": "https://m.media-amazon.com/images/M/MV5BNDEyZmE2MTgtNzZiYy00NWIwLWFjZWEtMjZjNDk4MjVhYmNlXkEyXkFqcGdeQXVyNjUyMTgxNjA@._V1_Ratio0.7046_AL_.jpg",
+              "year": 1981,
+              "duration": 0,
+              "directors": "",
+              "actors": [
+                {
+                  "actor": "Carry Tefsen",
+                  "character": "Mien Dobbelsteen"
+                },
+                {
+                  "actor": "Sjoukje Hooymaayer",
+                  "character": "dokter Lydie van der Ploeg"
+                },
+                {
+                  "actor": "John Leddy",
+                  "character": "Koos Dobbelsteen"
+                },
+                {
+                  "actor": "Manfred de Graaf",
+                  "character": "Hans Lansberg"
+                },
+                {
+                  "actor": "Hans Cornelissen",
+                  "character": "Gert-Jan van der Ploeg"
+                },
+                {
+                  "actor": "Kiki Classen",
+                  "character": "Wiep"
+                },
+                {
+                  "actor": "Herman Kortekaas",
+                  "character": "Jopie"
+                },
+                {
+                  "actor": "Kenneth Herdigein",
+                  "character": "dokter John"
+                },
+                {
+                  "actor": "Monique Rosier",
+                  "character": "Pien"
+                },
+                {
+                  "actor": "Ria Valk",
+                  "character": "Annie Kalkman"
+                },
+                {
+                  "actor": "Sylvia Holstijn",
+                  "character": "Teuntje van der Meer"
+                },
+                {
+                  "actor": "Coen Flink",
+                  "character": "Buurman Buys"
+                },
+                {
+                  "actor": "Renée Soutendijk",
+                  "character": "Nancy"
+                },
+                {
+                  "actor": "Georgette Reyevski",
+                  "character": "Oma"
+                },
+                {
+                  "actor": "Trees van der Donck",
+                  "character": "Mevrouw Bijlstra"
+                },
+                {
+                  "actor": "Jan Blaaser",
+                  "character": "Arie Kalkman"
+                },
+                {
+                  "actor": "Coby Timp",
+                  "character": "Nel Kalkman"
+                },
+                {
+                  "actor": "Ellen Pieters",
+                  "character": "Priscilla Kalkman"
+                }
+              ],
+              "rating": 6.7
             }
           ]
         },
         {
           "id": 3,
           "name": "teste3",
-          "description": "         \r\n        ",
+          "description": "Adicionada descrição\r\n        ",
           "movies": [
             {
               "id": "tt0133093",
@@ -742,6 +1080,90 @@
                 }
               ],
               "rating": 8.6
+            },
+            {
+              "id": "tt0468569",
+              "title": "The Dark Knight",
+              "description": "When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice.",
+              "image": "https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_Ratio0.6762_AL_.jpg",
+              "year": 2008,
+              "duration": 152,
+              "directors": "Christopher Nolan",
+              "actors": [
+                {
+                  "actor": "Christian Bale",
+                  "character": "Bruce Wayne"
+                },
+                {
+                  "actor": "Heath Ledger",
+                  "character": "Joker"
+                },
+                {
+                  "actor": "Aaron Eckhart",
+                  "character": "Harvey Dent"
+                },
+                {
+                  "actor": "Michael Caine",
+                  "character": "Alfred"
+                },
+                {
+                  "actor": "Maggie Gyllenhaal",
+                  "character": "Rachel"
+                },
+                {
+                  "actor": "Gary Oldman",
+                  "character": "Gordon"
+                },
+                {
+                  "actor": "Morgan Freeman",
+                  "character": "Lucius Fox"
+                },
+                {
+                  "actor": "Monique Gabriela Curnen",
+                  "character": "Ramirez"
+                },
+                {
+                  "actor": "Ron Dean",
+                  "character": "Wuertz"
+                },
+                {
+                  "actor": "Cillian Murphy",
+                  "character": "Scarecrow"
+                },
+                {
+                  "actor": "Chin Han",
+                  "character": "Lau"
+                },
+                {
+                  "actor": "Nestor Carbonell",
+                  "character": "Mayor"
+                },
+                {
+                  "actor": "Eric Roberts",
+                  "character": "Maroni"
+                },
+                {
+                  "actor": "Ritchie Coster",
+                  "character": "Chechen"
+                },
+                {
+                  "actor": "Anthony Michael Hall",
+                  "character": "Engel"
+                },
+                {
+                  "actor": "Keith Szarabajka",
+                  "character": "Stephens"
+                },
+                {
+                  "actor": "Colin McFarlane",
+                  "character": "Loeb"
+                },
+                {
+                  "actor": "Joshua Harto",
+                  "character": "Reese"
+                }
+              ],
+              "rating": 9
             }
           ]
         }
@@ -749,6 +1171,8 @@
     },
     {
       "id": 2,
+      "username": "joaopaulo",
+      "password": "bbb",
       "token": "32fdf193-0372-4bb1-970c-76830d184626",
       "groups": []
     }

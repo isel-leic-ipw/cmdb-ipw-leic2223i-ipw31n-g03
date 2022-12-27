@@ -1,7 +1,7 @@
 import fetch from 'node-fetch'
 import {readFile} from "fs/promises";
 
-const Top250Movies = './data/top250movies.json'
+const Top250Movies = './data/mem/top250movies.json'
 
 const Top250_URL = 'https://imdb-api.com/en/API/Top250Movies/k_awsfxf9a'
 const Search_URL = 'https://imdb-api.com/en/API/SearchMovie/k_awsfxf9a/'
@@ -22,7 +22,12 @@ export async function getMovie(movieId){
             year: Number(obj['year']),
             duration: Number(obj['runtimeMins']),
             directors: obj['directors'],
-            actors: obj['actorList'],
+            actors: obj['actorList'].map(actor =>{
+                return {
+                    actor:actor.name,
+                    character:actor.asCharacter
+                }
+            }),
             rating: Number(obj['imDbRating'])
     }
 }
@@ -61,9 +66,9 @@ export async function getMovies(title,limit){
     let results = obj['results'].map(movie =>{
         return {
             id: movie['id'],
-            image:movie['image'],
-            title: movie['title']
+            title: movie['title'],
+            image: movie['image']
         }
     })
-    return {movies:results.filter((_,index) => index+1 <= limit)}
+    return results.filter((_,index) => index+1 <= limit)
 }

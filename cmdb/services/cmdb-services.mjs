@@ -15,6 +15,7 @@ export default function (data, userData) {
     return {
         getMoviesTop: getMoviesTop,
         getMovies: getMovies,
+        getMovie:getMovie,
         getGroup: handleToken(getGroup),
         createGroup: handleToken(createGroup),
         updateGroup: handleToken(updateGroup),
@@ -22,7 +23,9 @@ export default function (data, userData) {
         getGroups: handleToken(getGroups),
         addMovie: handleToken(addMovie),
         removeMovie: handleToken(removeMovie),
+        getMovieDetails: handleToken(getMovieDetails),
         createUser: createUser,
+        getUser:getUser
     }
 
     async function getMoviesTop(limit = MAX_LIMIT) {
@@ -30,16 +33,25 @@ export default function (data, userData) {
         if (limit > MAX_LIMIT || limit < MIN_LIMIT) {
             throw errors.INVALID_PARAMETER("limit", `Limit must be positive, less than ${MAX_LIMIT}`)
         }
-        return data.getMoviesTop(limit)
+        return await data.getMoviesTop(limit)
+    }
+    async function getMovie(movieId){
+        return await data.getMovie(movieId)
+    }
+    async function getMovieDetails(user,groupId,movieId){
+        movieId = checkValidString(movieId,"movieId",`movie Id must not be empty`)
+        groupId = Number(checkValidString(groupId,"groupId",`movie Id must not be empty`))
+        return await userData.getMovieDetails(user.id,groupId,movieId)
     }
 
     async function getMovies(title, limit = MAX_LIMIT) {
+        if (limit==="") limit = MAX_LIMIT
         limit = checkValidNumber(limit,"limit")
         title = checkValidString(title,"title",`tittle must not be empty`)
         if (limit > MAX_LIMIT || limit < MIN_LIMIT) {
             throw errors.INVALID_PARAMETER("limit", `Limit must be positive, less than ${MAX_LIMIT}`)
         }
-        return data.getMovies(title, limit)
+        return await data.getMovies(title, limit)
     }
 
     async function getGroup(user, groupId) {
@@ -129,6 +141,9 @@ export default function (data, userData) {
         if (isNaN(value) || !value){
             throw errors.INVALID_PARAMETER(arg_name,description)
         }else return value
+    }
+   async function getUser(username,password){
+       return await userData.getUserWeb(username,password)
     }
 }
 
