@@ -42,9 +42,9 @@ export default function handleRequest(handler,option,auth=true) {
 
         } catch(e) {
             const response = toHttpResponse(e)
-            rsp.status(response.status).json({ error: response.body })
+            if (option===JSON) rsp.status(response.status).json({ error: response.body })
+            else rsp.status(404).render('error404',{title:'404 Page not found'})
         }
-
     }
 }
 export function verifyAuth(req, rsp, next) {
