@@ -1,18 +1,18 @@
 <div class="container-fluid">
     <div class="p-2"></div>
-<form action="./{{movie.id}}/add" method="get">
+<form action="./{{movie.id}}/add" method="post">
     <div class="d-flex flex-row">
     <div class="form-group" style="width: 50%">
         <label for="groupId">Select Group:</label>
         <select class="form-select" aria-label=".form-select-lg example" id="groupId" name="groupId">
-            <label for="groupId">Select Group</label>
+            <label for="group">Select Group</label>
             {{#each groups}}
-                <option value={{id}} name="groupId">{{name}}</option>
+                <option value={{id}} name="group">{{name}}</option>
             {{/each}}
         </select>
     </div>
         <div class="p-2"></div>
-        <a class="btn btn-primary" style="margin-top: 20px" type="submit" role="button" aria-disabled="true">Confirm</a>
+        <input class="btn btn-primary" style="margin-top: 20px" type="submit" role="button" aria-disabled="true" value="Confirm"/>
     </div>
     <div class="p-2"></div>
 </form>

@@ -13,6 +13,7 @@ import passport from 'passport'
 import cookieParser from 'cookie-parser'
 import session from 'express-session'
 import fileStore from 'session-file-store'
+import {verifyAuth,logout} from "./web/common/cmdb-handler.mjs";
 
 import * as data from './data/common/imdb-movies-data.mjs'
 import * as userData from './data/mem/cmdb-data-mem.mjs'
@@ -90,19 +91,22 @@ app.get(`${sitePrefix}/auth/groups/:groupId`,site.getGroup)
 // Movie in Group
 app.get(`${sitePrefix}/auth/groups/:groupId/:movieId`,site.getMovieDetails)
 app.get(`${sitePrefix}/auth/movies/:movieId`,site.getAddMovieForm)
-app.get(`${sitePrefix}/auth/movies/:movieId/add`,site.addMovie)
+app.post(`${sitePrefix}/auth/movies/:movieId/add`,site.addMovie)
 app.post(`${sitePrefix}/auth/groups/:groupId/:movieId/del`,site.removeMovie)
 //Groups
 app.get(`${sitePrefix}/auth/groups`,site.getGroups)
 app.post(`${sitePrefix}/auth/groups`,site.createGroup)
 //Non-Authenticated
-app.use(`${sitePrefix}/auth`,site.verifyAuth)
+app.use(`${sitePrefix}/auth`,verifyAuth)
 app.get(`${sitePrefix}/home`,site.home)
 //Authentication
 app.get(`${sitePrefix}/login`,site.loginForm)
 app.get(`${sitePrefix}/auth/home`,site.homeAuth)
+app.get(`${sitePrefix}/createuser`,site.createUserForm)
+app.post(`${sitePrefix}/createuser`,site.createUser)
+app.post(`${sitePrefix}/deleteuser`,site.deleteUser)
 app.post(`${sitePrefix}/login`,site.validateLogin)
-app.post(`${sitePrefix}/logout`,site.logout)
+app.post(`${sitePrefix}/logout`,logout)
 
 
 app.listen(PORT, () => console.log(`Server listening in http://localhost:${PORT}`))

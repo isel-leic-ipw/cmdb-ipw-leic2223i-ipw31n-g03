@@ -2,6 +2,7 @@
 
 import { MAX_LIMIT, MIN_LIMIT } from "./cmdb-services-constants.mjs"
 import errors from '../errors.mjs'
+import {removeUser} from "../data/mem/cmdb-data-mem.mjs";
 
 export default function (data, userData) {
     // Validate arguments
@@ -16,6 +17,7 @@ export default function (data, userData) {
         getMoviesTop: getMoviesTop,
         getMovies: getMovies,
         getMovie:getMovie,
+        createUserWeb:createUserWeb,
         getGroup: handleToken(getGroup),
         createGroup: handleToken(createGroup),
         updateGroup: handleToken(updateGroup),
@@ -25,7 +27,8 @@ export default function (data, userData) {
         removeMovie: handleToken(removeMovie),
         getMovieDetails: handleToken(getMovieDetails),
         createUser: createUser,
-        getUser:getUser
+        getUser:getUser,
+        deleteUser:handleToken(deleteUser)
     }
 
     async function getMoviesTop(limit = MAX_LIMIT) {
@@ -117,6 +120,12 @@ export default function (data, userData) {
 
     async function createUser() {
         return await userData.createUser()
+    }
+    async function deleteUser(user) {
+        return await userData.removeUser(user.id)
+    }
+    async function createUserWeb(username,password) {
+        return await userData.createUserWeb(username,password)
     }
 
     function handleToken(handler) {

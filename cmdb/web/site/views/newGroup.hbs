@@ -1,12 +1,13 @@
-<form action={{action}} method="post">
-    <p >
-        Group Name:
-            <input type="text" name="name" value="{{group.name}}" required>
-    </p>
-       Group Description:
-    <p>
-        <textarea name="description" cols="50">{{group.description}}</textarea>
-
-    </p>
-    <input type="submit" value={{buttonText}}>
-</form>
+<div class="card" style="padding: 20px;margin-top: 20px">
+    <form method="POST" action={{action}}>
+        <div class="form-group">
+            <label for="name">Group name:</label>
+            <input type="text" name="name" class="form-control" id="name" placeholder="type the name of the group" value={{group.name}} required>
+        </div>
+        <div class="form-group">
+            <label for="description">Description:</label>
+            <textarea class="form-control" id="description" name="description" placeholder="Type Description">{{group.description}}</textarea>
+        </div>
+        <button style="margin-top:10px" type="submit" class="btn btn-primary">{{buttonText}}</button>
+    </form>
+</div>

@@ -13,54 +13,56 @@ export default function (services) {
         throw errors.INVALID_PARAMETER('services')
     }
     return {
-        getAddMovieForm:handleRequest(addMovieForm,RENDER,false),
-        getMovie: handleRequest(getMovie,RENDER,false),
+        getAddMovieForm:handleRequest(addMovieForm,RENDER),
+        getMovie: handleRequest(getMovie,RENDER),
         searchMovieForm:handleRequest(searchMovieForm,RENDER,false),
         getMovies: handleRequest(getMovies,RENDER,false),
         getMoviesTop:handleRequest(getMoviesTop,RENDER,false),
-        createGroupForm:handleRequest(createGroupForm,RENDER,false),
-        getGroups:handleRequest(getGroups,RENDER,false) ,
-        createGroup:handleRequest(createGroup,REDIRECTED,false),
-        getGroup:handleRequest(getGroup,RENDER,false),
-        deleteGroup:handleRequest(deleteGroup,REDIRECTED,false),
-        updateGroup:handleRequest(updateGroup,REDIRECTED,false),
-        updateGroupForm:handleRequest(updateGroupForm,RENDER,false),
-        addMovie:handleRequest(addMovie,REDIRECTED,false),
-        removeMovie:handleRequest(removeMovie,REDIRECTED,false),
-        getMovieDetails:handleRequest(getMovieDetails,RENDER,false),
-        verifyAuth:verifyAuth,
+        createGroupForm:handleRequest(createGroupForm,RENDER),
+        getGroups:handleRequest(getGroups ,RENDER),
+        createGroup:handleRequest(createGroup,REDIRECTED),
+        getGroup:handleRequest(getGroup,RENDER),
+        deleteGroup:handleRequest(deleteGroup,REDIRECTED),
+        updateGroup:handleRequest(updateGroup,REDIRECTED),
+        updateGroupForm:handleRequest(updateGroupForm,RENDER),
+        addMovie:handleRequest(addMovie,REDIRECTED),
+        removeMovie:handleRequest(removeMovie,REDIRECTED),
+        getMovieDetails:handleRequest(getMovieDetails,RENDER),
         validateLogin:validateLogin,
-        logout:logout,
+        createUserForm:handleRequest(createUserForm,RENDER,false),
+        createUser:handleRequest(createUser,REDIRECTED,false),
+        deleteUser:handleRequest(deleteUser,REDIRECTED),
         loginForm:handleRequest(loginForm,RENDER,false),
         home:handleRequest(home,REDIRECTED,false),
-        homeAuth:handleRequest(homeAuth,REDIRECTED,false),
+        homeAuth:handleRequest(homeAuth,REDIRECTED),
     }
-    function verifyAuth(req, rsp, next) {
-        console.log("verifyAuthenticated", req.user)
-        if(req.user) {
-            console.log("$$$$$$$$$$$$$$$$$")
-            return next()
-        }
-        console.log("#################")
-        rsp.redirect('site/login')
-    }
-    function logout(req, rsp) {
-        req.logout((err) => {
-            rsp.redirect('./home')
-        })
 
+    function createUserForm(req, rsp){
+        return new View('login',{title:`Create Account`,action:'./createuser'})
+    }
+   async function createUser(req, rsp){
+        let user = await services.createUserWeb(req.body.username, req.body.password)
+        req.login(user, () => rsp.redirect('/site/auth/home'))
+    }
+    async function deleteUser(req, rsp){
+        await services.deleteUser(req.token)
+        req.logout((err) => {
+            rsp.redirect('/site/home')
+        })
     }
     function home(req, rsp) {
         let user = req.user ? req.user.username : "unknown"
         if(user !== "unknown"){
-            rsp.redirect('/site/auth/groups')
+            rsp.redirect('/site/auth/home')
         }
         rsp.render('home',{title:`Home Page`,username:user})
     }
     function homeAuth(req, rsp) {
         console.log("homeAuthenticated - ", req.user)
         const user = req.user.username
-        if (user) rsp.redirect(`/site/auth/groups`)
+        if (user){
+            rsp.render('homeAuth',{title:'Home Page',user:req.user})
+        }
         else rsp.redirect(`/site/home`)
     }
     async function validateLogin(req, rsp) {
@@ -74,7 +76,7 @@ export default function (services) {
                 token: user_auth.token
             }
             console.log(user)
-            req.login(user, () => rsp.redirect('./auth/home'))
+            req.login(user, () => rsp.redirect('./auth/groups'))
         }
        async function validateUser(username, password) {
             return await services.getUser(username, password)
@@ -83,45 +85,44 @@ export default function (services) {
     async function addMovieForm(req, rsp){
         let movie = await services.getMovie(req.params.movieId)
         let groups = await services.getGroups(req.token)
-        return new View('selectGroupForm',{title:`Select Group`,movie:movie,groups:groups})
+        return new View('selectGroupForm',{title:`Select Group`,movie:movie,groups:groups,user:req.user})
     }
     async function searchMovieForm(req, rsp){
-        return new View('searchMovieForm',{title:`Search Movies`})
+        return new View('searchMovieForm',{title:`Search Movies`,user:req.user})
     }
     async function getMovies(req, rsp) {
         let movies = await services.getMovies(req.query.title, req.query.limit)
-        return new View('movies_top',{title:`Search Result List`,movies:movies})
+        return new View('movies_top',{title:`Search Result List`,movies:movies,user:req.user})
     }
     async function getMovieDetails(req, rsp) {
         let movie = await services.getMovieDetails(req.token,req.params.groupId,req.params.movieId)
-        return new View('movieDetails',{title:movie.title,movie:movie,groupId:req.params.groupId})
+        return new View('movieDetails',{title:movie.title,movie:movie,groupId:req.params.groupId,user:req.user})
     }
     async function getMovie(req, rsp) {
         let movie = await services.getMovie(req.query.title, req.query.limit)
-        return new View('moviesList',{title:'Movies List',movie:movie})
+        return new View('moviesList',{title:'Movies List',movie:movie,user:req.user})
     }
     async function createGroupForm(req, rsp) {
-       return new View('newGroup',{title:`New Group`,buttonText:'Create Group',action:`/site/groups`})
+       return new View('newGroup',{title:`New Group`,buttonText:'Create Group',action:`/site/auth/groups`,user:req.user})
     }
     async function loginForm(req, rsp){
-        let user = req.user
-        return new View('login',{title:`Login`,user:user})
+        return new View('login',{title:`Login`,user:req.user,action:'/site/login'})
     }
     async function getMoviesTop(req, rsp) {
         let moviesTop = await services.getMoviesTop(req.query.limit)
-        return new View('movies_top',{title:`List of movies Top`,movies:moviesTop})
+        return new View('movies_top',{title:`List of movies Top`,movies:moviesTop,user:req.user})
     }
     async function getGroups(req, rsp) {
         let groups = await services.getGroups(req.token)
-        return new View('groups',{title:`Groups`,groups:groups})
+        return  new View('groups',{title:`Groups`,groups:groups,user:req.user})
     }
     async function getGroup(req, rsp) {
         let group = await services.getGroup(req.token,req.params.groupId)
-        return new View('group',{title:group.name,group:group})
+        return new View('group',{title:group.name,group:group,user:req.user})
     }
     async function createGroup(req, rsp) {
         await services.createGroup(req.token, {name:req.body.name,description:req.body.description})
-        rsp.redirect(`/site/groups`)
+        rsp.redirect(`/site/auth/groups`)
     }
     async function updateGroup(req, rsp) {
         let editedGroup = await services.updateGroup(req.token,req.params.groupId, {name:req.body.name,description:req.body.description})
@@ -129,14 +130,14 @@ export default function (services) {
     }
     async function updateGroupForm(req, rsp) {
         let group = await services.getGroup(req.token,req.params.groupId)
-        return new View('newGroup',{title:`Update Group`,group:group,buttonText:'Update Group',action:`/site/auth/groups/${group.id}/update`})
+        return new View('newGroup',{title:`Update Group`,group:group,buttonText:'Update Group',action:`/site/auth/groups/${group.id}/update`,user:req.user})
     }
     async function deleteGroup(req, rsp) {
         await services.deleteGroup(req.token,req.params.groupId)
-        rsp.redirect(`/site/groups`)
+        rsp.redirect(`/site/auth/groups`)
     }
     async function addMovie(req, rsp) {
-        let group = await services.addMovie(req.token,Number(req.query.groupId),req.params.movieId)
+        let group = await services.addMovie(req.token,Number(req.body.groupId),req.params.movieId)
         rsp.redirect(`/site/auth/groups/${group.id}`)
     }
     async function removeMovie(req, rsp) {

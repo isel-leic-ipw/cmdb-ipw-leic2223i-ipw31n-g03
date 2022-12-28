@@ -3,6 +3,7 @@
     <a href="./groups/new" class="btn btn-primary" role="button" aria-disabled="true">Create a new group</a>
 </div>
     {{#each groups}}
+        <div class="card" style="padding: 20px;margin-top: 10px">
         {{> groupPartial}}
     <div class="d-flex flex-row align-items-start">
         <a class="btn btn-primary" href="/site/auth/groups/{{id}}" role="button">Group Details</a>
@@ -11,7 +12,7 @@
             <button type="submit" class="btn btn-danger">Delete Group</button>
         </form>
     </div>
-        <hr>
+    </div>
     {{/each}}
 </div>
 

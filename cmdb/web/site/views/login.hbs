@@ -1,9 +1,13 @@
-<form method="POST" action="./login">
-    <p>
-        Username: <input type="text" name="username" value="">
-    </p>
-    <p>
-        Password: <input type="password" name="password">
-    </p>
-    <input type="submit">
+<div class="card" style="padding: 20px;margin-top: 20px">
+<form method="POST" action={{action}}>
+    <div class="form-group">
+        <label for="username">Username:</label>
+        <input type="text" name="username" class="form-control" id="username" placeholder="type user name" required>
+    </div>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" name="password" class="form-control" id="password" required>
+    </div>
+    <button style="margin-top:10px" type="submit" class="btn btn-primary"> Submit</button>
 </form>
+</div>

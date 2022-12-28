@@ -6,19 +6,21 @@ export default function handleRequest(handler,option,auth=true) {
 
     return async function (req, rsp, next) {
         if(auth){
-        let tokenHeader = req.get(AUTHORIZATION) || req.user.token
-        if (!(tokenHeader && tokenHeader.startsWith(BEARER) && tokenHeader.length > BEARER.length)) {
-            rsp.status(401).json({
-                error: {
-                    message: "Invalid or missing token"
+            if (option===JSON){
+                let tokenHeader = req.get(AUTHORIZATION) || req.user.token
+                if (!(tokenHeader && tokenHeader.startsWith(BEARER) && tokenHeader.length > BEARER.length)) {
+                    rsp.status(401).json({
+                        error: {
+                            message: "Invalid or missing token"
+                        }
+                    })
+                    return
                 }
-            })
-            return
-        }
-        req.token = tokenHeader.split(" ")[1]
-        }
-        else {
-                if (req.user) req.token = req.user.token
+                req.token = tokenHeader.split(" ")[1]
+            }
+            else
+                if(req.user) req.token = req.user.token
+                else return rsp.redirect('/site/login')
         }
         try {
             let body = await handler(req, rsp)
@@ -33,10 +35,10 @@ export default function handleRequest(handler,option,auth=true) {
                     case REDIRECTED:
                         break;
                     default:
-                        throw 1
+                        throw toHttpResponse(1)
                 }
             }
-            else throw 1
+            else throw toHttpResponse(1)
 
         } catch(e) {
             const response = toHttpResponse(e)
@@ -44,4 +46,18 @@ export default function handleRequest(handler,option,auth=true) {
         }
 
     }
+}
+export function verifyAuth(req, rsp, next) {
+    console.log("verifyAuthenticated", req.user)
+    if(req.user) {
+        console.log("$$$$$$$$$$$$$$$$$")
+        return next()
+    }
+    console.log("#################")
+    rsp.redirect('/site/login')
+}
+export function logout(req, rsp) {
+    req.logout((err) => {
+        rsp.redirect('/site/home')
+    })
 }

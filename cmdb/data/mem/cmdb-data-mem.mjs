@@ -31,8 +31,10 @@ export async function removeUser(userToken) {
     let data = await getData()
     let users = data.users
     let user = users.find(user => user.token === userToken)
-    users.pop(user)
+    let idx = users.indexOf(user)
+    users.splice(idx,1)
     await saveData(data)
+    return
 }
 
 export async function createUser() {
@@ -42,6 +44,23 @@ export async function createUser() {
     let idx = users.length + 1
     let newUser = {
         id: idx,
+        token: token,
+        groups:[]
+    }
+    users.push(newUser)
+    await saveData(data)
+    return newUser
+}
+export async function createUserWeb(username,password) {
+    let data = await getData()
+    let users = data.users
+    if(users.find(user =>user.username === username )) return
+    let token = crypto.randomUUID()
+    let idx = users.length + 1
+    let newUser = {
+        id: idx,
+        username:username,
+        password:password,
         token: token,
         groups:[]
     }

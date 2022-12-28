@@ -1175,6 +1175,105 @@
       "password": "bbb",
       "token": "32fdf193-0372-4bb1-970c-76830d184626",
       "groups": []
+    },
+    {
+      "id": 3,
+      "username": "testeUser",
+      "password": "aaa",
+      "token": "eb8212c1-0017-47e8-ab74-82e4fdbe8578",
+      "groups": [
+        {
+          "id": 1,
+          "name": "teste1",
+          "description": "aaa",
+          "movies": [
+            {
+              "id": "tt0133093",
+              "title": "The Matrix",
+              "description": "When a beautiful stranger leads computer hacker Neo to a forbidding underworld, he discovers the shocking truth--the life he knows is the elaborate deception of an evil cyber-intelligence.",
+              "image": "https://m.media-amazon.com/images/M/MV5BNzQzOTk3OTAtNDQ0Zi00ZTVkLWI0MTEtMDllZjNkYzNjNTc4L2ltYWdlXkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_Ratio0.6762_AL_.jpg",
+              "year": 1999,
+              "duration": 136,
+              "directors": "Lana Wachowski, Lilly Wachowski",
+              "actors": [
+                {
+                  "actor": "Keanu Reeves",
+                  "character": "Neo"
+                },
+                {
+                  "actor": "Laurence Fishburne",
+                  "character": "Morpheus"
+                },
+                {
+                  "actor": "Carrie-Anne Moss",
+                  "character": "Trinity"
+                },
+                {
+                  "actor": "Hugo Weaving",
+                  "character": "Agent Smith"
+                },
+                {
+                  "actor": "Gloria Foster",
+                  "character": "Oracle"
+                },
+                {
+                  "actor": "Joe Pantoliano",
+                  "character": "Cypher"
+                },
+                {
+                  "actor": "Marcus Chong",
+                  "character": "Tank"
+                },
+                {
+                  "actor": "Julian Arahanga",
+                  "character": "Apoc"
+                },
+                {
+                  "actor": "Matt Doran",
+                  "character": "Mouse"
+                },
+                {
+                  "actor": "Belinda McClory",
+                  "character": "Switch"
+                },
+                {
+                  "actor": "Anthony Ray Parker",
+                  "character": "Dozer"
+                },
+                {
+                  "actor": "Paul Goddard",
+                  "character": "Agent Brown"
+                },
+                {
+                  "actor": "Robert Taylor",
+                  "character": "Agent Jones"
+                },
+                {
+                  "actor": "David Aston",
+                  "character": "Rhineheart"
+                },
+                {
+                  "actor": "Marc Aden Gray",
+                  "character": "Choi"
+                },
+                {
+                  "actor": "Ada Nicodemou",
+                  "character": "Dujour (White Rabbit Girl)"
+                },
+                {
+                  "actor": "Deni Gordon",
+                  "character": "Priestess"
+                },
+                {
+                  "actor": "Rowan Witt",
+                  "character": "Spoon Boy"
+                }
+              ],
+              "rating": 8.7
+            }
+          ]
+        }
+      ]
     }
   ]
 }

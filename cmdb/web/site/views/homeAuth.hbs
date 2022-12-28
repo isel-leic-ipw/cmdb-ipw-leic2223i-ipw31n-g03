@@ -1,1 +1,9 @@
-<h1>You can only reach here if you are authenticated. Hello ${user}</h1>
+
+    <h2>Welcome to Cmdb {{user.username}}</h2>
+    <div class="d-flex flex-row align-items-center">
+    <a class="btn btn-primary" href="/site/auth/groups" role="button">Go to Groups</a>
+    <div class="p-2"></div>
+    <form method="post" action="/site/deleteuser">
+        <button type="submit" class="btn btn-danger">Delete Account</button>
+    </form>
+</div>
