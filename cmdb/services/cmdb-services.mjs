@@ -31,6 +31,7 @@ export default function (data, userData) {
     }
 
     async function getMoviesTop(limit = MAX_LIMIT) {
+        if(limit ==="") limit=MAX_LIMIT
         limit = checkValidNumber(limit,"limit")
         if (limit > MAX_LIMIT || limit < MIN_LIMIT) {
             throw errors.INVALID_PARAMETER("limit", `Limit must be positive, less than ${MAX_LIMIT}`)

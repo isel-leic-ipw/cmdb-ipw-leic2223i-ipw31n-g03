@@ -49,7 +49,7 @@ export async function getMoviesTop(limit){
             ratingCount: Number(movie['imDbRatingCount'])
         }
     })
-    return { movies:results.filter((_,index) => index+1 <= limit) }
+    return results.filter((_,index) => index+1 <= limit)
 }
 
 export async function getMovies(title,limit){
