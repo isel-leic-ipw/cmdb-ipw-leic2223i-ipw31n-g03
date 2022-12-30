@@ -33,15 +33,11 @@ export async function getMovie(movieId){
 }
 
 export async function getMoviesTop(limit){
-     let file = await readFile(Top250Movies)
-     file = JSON.parse(file)
-     let result = file.items.filter((_,index) => index+1 <= limit  )
-     return result
-    /*let rsp = await  fetch(Top250_URL)
+    let rsp = await fetch(Top250_URL)
     let obj = await rsp.json()
     if(obj['errorMessage']!==""){
         return
-    }*/
+    }
     let results = obj['items'].map(movie =>{
         return {
             id: movie['id'],
@@ -53,7 +49,7 @@ export async function getMoviesTop(limit){
             ratingCount: Number(movie['imDbRatingCount'])
         }
     })
-    return {movies:results.filter((_,index) => index+1 <= limit)}
+    return { movies:results.filter((_,index) => index+1 <= limit) }
 }
 
 export async function getMovies(title,limit){

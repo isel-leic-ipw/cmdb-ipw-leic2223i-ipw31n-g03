@@ -43,8 +43,8 @@ export default function (data, userData) {
     }
     async function getMovieDetails(user,groupId,movieId){
         movieId = checkValidString(movieId,"movieId",`movie Id must not be empty`)
-        groupId = Number(checkValidString(groupId,"groupId",`movie Id must not be empty`))
-        return await userData.getMovieDetails(user.id,groupId,movieId)
+        groupId = checkValidString(groupId,"groupId",`group Id must not be empty`)
+        return await userData.getMovieDetails(groupId, movieId)
     }
 
     async function getMovies(title, limit = MAX_LIMIT) {
@@ -58,8 +58,8 @@ export default function (data, userData) {
     }
 
     async function getGroup(user, groupId) {
-        groupId = checkValidNumber(groupId,"groupId")
-        const group = await userData.getGroup(user.id, groupId)
+        groupId = checkValidString(groupId,"groupId")
+        const group = await userData.getGroup(groupId)
         if(!group) {
             throw errors.GROUP_NOT_FOUND(groupId)
         }
@@ -69,13 +69,13 @@ export default function (data, userData) {
 
     async function createGroup(user, groupRepresentation) {
         groupRepresentation.name = checkValidString(groupRepresentation.name,'name')
-        return userData.createGroup(user.id, groupRepresentation)
+        return userData.createGroup(user, groupRepresentation)
     }
 
     async function updateGroup(user, groupId, groupRepresentation) {
-        groupId = checkValidNumber(groupId,"groupId")
+        groupId = checkValidString(groupId,"groupId")
         groupRepresentation.name = checkValidString(groupRepresentation.name,'name')
-        const group = await userData.updateGroup(user.id, groupId, groupRepresentation)
+        const group = await userData.updateGroup(groupId, groupRepresentation)
         if(!group) {
             throw errors.GROUP_NOT_FOUND(groupId)
         }
@@ -84,8 +84,8 @@ export default function (data, userData) {
     }
 
     async function deleteGroup(user, groupId) {
-        groupId = checkValidNumber(groupId,"groupId")
-        const group = await userData.deleteGroup(user.id, groupId)
+        groupId = checkValidString(groupId,"groupId")
+        const group = await userData.deleteGroup(groupId)
         if(!group) {
             throw errors.GROUP_NOT_FOUND(groupId)
         }
@@ -94,13 +94,13 @@ export default function (data, userData) {
     }
 
     async function getGroups(user) {
-        return userData.getGroups(user.id)
+        return userData.getGroups(user)
     }
 
     async function addMovie(user, groupId, movieId) {
-        groupId = checkValidNumber(groupId,"groupId")
+        groupId = checkValidString(groupId,"groupId")
         movieId = checkValidString(movieId,"movieId")
-        const group = await userData.addMovie(user.id, groupId, movieId)
+        const group = await userData.addMovie(groupId, movieId)
         if(!group) {
             throw errors.GROUP_NOT_FOUND(groupId)
         }
@@ -109,9 +109,9 @@ export default function (data, userData) {
     }
 
     async function removeMovie(user, groupId, movieId) {
-        groupId = checkValidNumber(groupId,"groupId")
+        groupId = checkValidString(groupId,"groupId")
         movieId = checkValidString(movieId,"movieId")
-        const group = await userData.removeMovie(user.id, groupId, movieId)
+        const group = await userData.removeMovie(groupId, movieId)
         if(!group) {
             throw errors.GROUP_NOT_FOUND(groupId)
         }

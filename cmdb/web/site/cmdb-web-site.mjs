@@ -137,11 +137,11 @@ export default function (services) {
         rsp.redirect(`/site/auth/groups`)
     }
     async function addMovie(req, rsp) {
-        let group = await services.addMovie(req.token,Number(req.body.groupId),req.params.movieId)
+        let group = await services.addMovie(req.token, req.body.groupId, req.params.movieId)
         rsp.redirect(`/site/auth/groups/${group.id}`)
     }
     async function removeMovie(req, rsp) {
-        let group = await services.removeMovie(req.token,Number(req.params.groupId),req.params.movieId)
+        let group = await services.removeMovie(req.token, req.params.groupId,req.params.movieId)
         rsp.redirect(`/site/auth/groups/${group.id}`)
     }
 

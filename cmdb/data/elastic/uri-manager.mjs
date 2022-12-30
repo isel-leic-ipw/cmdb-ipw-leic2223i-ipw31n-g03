@@ -6,6 +6,6 @@ export default function(idx){
         get:(id) => `${ELASTIC}${idx}/_doc/${id}`,
         create:() => `${ELASTIC}${idx}/_doc?refresh=wait_for`,
         update:(id) => `${ELASTIC}${idx}/_doc/${id}?refresh=wait_for`,
-        delete:(id) => `${ELASTIC}${idx}/_doc?/${id}?refresh=wait_for`,
+        delete:(id) => `${ELASTIC}${idx}/_doc/${id}?refresh=wait_for`,
     }
 }

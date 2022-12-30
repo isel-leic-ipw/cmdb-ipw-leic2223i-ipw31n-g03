@@ -16,15 +16,15 @@ import fileStore from 'session-file-store'
 import {verifyAuth,logout} from "./web/common/cmdb-handler.mjs";
 
 import * as data from './data/common/imdb-movies-data.mjs'
-import * as userData from './data/mem/cmdb-data-mem.mjs'
+import * as userData from './data/elastic/cmdb-db.mjs'
 import servicesInit from './services/cmdb-services.mjs'
 import apiInit from './web/api/cmdb-web-api.mjs'
 import siteInit from './web/site/cmdb-web-site.mjs'
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
-
-const swaggerDocument = yaml.load('./docs/cmdb-api.yaml')
+const swaggerDocument = yaml.load(__dirname+'/docs/cmdb-api.yaml')
+// const swaggerDocument = yaml.load('./docs/cmdb-api.yaml')
 const PORT = 1500
 const apiPrefix="/api"
 const sitePrefix="/site"

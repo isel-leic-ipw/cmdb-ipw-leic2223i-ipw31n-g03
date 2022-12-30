@@ -18,7 +18,7 @@ tags:
   - name: Users
 
 paths:
-  /movies/top:
+  /api/movies/top:
     get:
       tags:
         - Movies
@@ -52,7 +52,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/InternalServerError'
-  /movies:
+  /api/movies:
     get:
       tags:
         - Movies
@@ -92,7 +92,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/InternalServerError'
-  /groups:
+  /api/groups:
     get:
       tags:
         - Groups
@@ -180,7 +180,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/InternalServerError'
-  /groups/{groupId}:
+  /api/groups/{groupId}:
     get:
       tags:
       - Groups
@@ -195,7 +195,7 @@ paths:
           description: ID of Group to be fetched
           required: true
           schema:
-            type: integer
+            type: string
             minimum: 0
       responses:
         200:
@@ -245,7 +245,7 @@ paths:
           description: ID of the Group to be updated
           required: true
           schema:
-            type: integer
+            type: string
       requestBody:
         description: Update a Group in the system
         content:
@@ -310,7 +310,7 @@ paths:
           description: ID of the Group to be deleted
           required: true
           schema:
-            type: integer
+            type: string
       responses:
         200:
           description: Group deleted
@@ -345,7 +345,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/InternalServerError'
-  /groups/{groupId}/{movieId}:
+  /api/groups/{groupId}/{movieId}:
     put:
       tags:
         - Groups
@@ -360,7 +360,7 @@ paths:
           description: ID of the Group to be updated
           required: true
           schema:
-            type: integer
+            type: string
         - name: movieId
           in: path
           description: ID of the Movie to be added
@@ -415,7 +415,7 @@ paths:
           description: ID of the Group to be updated
           required: true
           schema:
-            type: integer
+            type: string
         - name: movieId
           in: path
           description: ID of the Movie to be added
@@ -456,7 +456,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/InternalServerError'
-  /users:
+  /api/users:
     post:
       tags:
       - Users

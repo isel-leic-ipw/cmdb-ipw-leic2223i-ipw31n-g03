@@ -5,4 +5,3 @@ export const DELETE = 'DELETE'
 
 export const USERS_IDX = "users"
 export const GROUPS_IDX = "groups"
-export const MOVIES_IDX = "movies"

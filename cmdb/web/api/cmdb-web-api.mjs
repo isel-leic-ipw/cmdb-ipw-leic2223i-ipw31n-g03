@@ -91,11 +91,11 @@ export default function (services) {
     }
 
     async function createUser(req, rsp) {
-        let user = await services.createUser()
+        let token = await services.createUser()
         rsp.status(201)
         return {
-            status: `User with id ${user.id} created with success`,
-            user: user
+            status: `User was created with success`,
+            token: token
         }
     }
 }
