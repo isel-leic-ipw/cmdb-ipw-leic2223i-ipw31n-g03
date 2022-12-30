@@ -2,7 +2,6 @@
 
 import { MAX_LIMIT, MIN_LIMIT } from "./cmdb-services-constants.mjs"
 import errors from '../errors.mjs'
-import {removeUser} from "../data/mem/cmdb-data-mem.mjs";
 
 export default function (data, userData) {
     // Validate arguments
@@ -94,7 +93,7 @@ export default function (data, userData) {
     }
 
     async function getGroups(user) {
-        return userData.getGroups(user)
+        return userData.getGroups(user.id)
     }
 
     async function addMovie(user, groupId, movieId) {

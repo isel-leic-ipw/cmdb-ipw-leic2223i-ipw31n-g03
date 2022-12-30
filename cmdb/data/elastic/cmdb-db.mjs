@@ -1,12 +1,13 @@
 import elasticHttpClient from "./elastic-http-client.mjs"
-import uri from "./uri-manager.mjs";
 import * as imdb from '../common/imdb-movies-data.mjs'
 import crypto from "node:crypto";
-import { DELETE, GET, GROUPS_IDX, POST, PUT, USERS_IDX } from "./cmdb-data-constants.mjs"
 import errors from "../../errors.mjs";
 
+const USERS_IDX = "users"
+const GROUPS_IDX = "groups"
+
 export async function getUser(userToken) {
-    const response = await elasticHttpClient(POST, uri(USERS_IDX).getAll(), {
+    const hits = await elasticHttpClient(USERS_IDX).search({
         query: {
             match: {
                 token: userToken
@@ -14,16 +15,12 @@ export async function getUser(userToken) {
         }
     })
 
-    const hits = response["hits"]["hits"]
+    if (hits.length > 1) return undefined
 
-    if (hits.length === 0) {
-        return undefined
-    }
-
-    const user = hits[0]["_source"]
+    const user = hits[0].body
 
     return {
-        id: hits[0]["_id"],
+        id: hits[0].id,
         username: user.username,
         password: user.password,
         token: user.token
@@ -31,7 +28,7 @@ export async function getUser(userToken) {
 }
 
 export async function getUserWeb(username, password) {
-    const response = await elasticHttpClient(POST, uri(USERS_IDX).getAll(),{
+    const hits = await elasticHttpClient(USERS_IDX).search({
         query: {
             match: {
                 username: username
@@ -39,18 +36,14 @@ export async function getUserWeb(username, password) {
         }
     })
 
-    const hits = response["hits"]["hits"]
-
-    if (hits.length === 0) return undefined
-
-    const hit = hits.find(hit => hit["_source"].password === password)
+    const hit = hits.find(hit => hit.body.password === password)
 
     if (!hit) return undefined
 
-    const user = hit["_source"]
+    const user = hit.body
 
     return {
-        id: hit["_id"],
+        id: hit.id,
         username: user.username,
         password: user.password,
         token: user.token,
@@ -71,17 +64,17 @@ export async function getMovieDetails(groupId, movieId) {
 }
 
 export async function removeUser(userId) {
-    const response = await elasticHttpClient(DELETE, uri(USERS_IDX).delete(userId))
-    return response["result"]
+    const response = await elasticHttpClient(USERS_IDX).delete(userId)
+    return response.result
 }
 
 export async function createUser() {
     const token = crypto.randomUUID()
-    const response = await elasticHttpClient(POST, uri(USERS_IDX).create(), {
+    const response = await elasticHttpClient(USERS_IDX).create({
         token: token
     })
 
-    if(response["result"] === "created") {
+    if(response.result) {
         return token
     }
 
@@ -94,9 +87,9 @@ export async function createUserWeb(username, password) {
         password: password,
         token: crypto.randomUUID()
     }
-    const response = await elasticHttpClient(POST, uri(USERS_IDX).create(), user)
+    const response = await elasticHttpClient(USERS_IDX).create(user).catch(reason => console.log(reason))
 
-    if(response["result"] === "created") {
+    if(response.result) {
         return user
     }
 
@@ -110,11 +103,11 @@ export async function createGroup(user, groupRepresentation) {
         description: groupRepresentation.description,
         movies: []
     }
-    const response = await elasticHttpClient(POST, uri(GROUPS_IDX).create(), groupRepresentation)
+    const response = await elasticHttpClient(GROUPS_IDX).create(groupRepresentation)
 
-    if(response["result"] === "created") {
+    if(response.result) {
         return {
-            id: response["_id"],
+            id: response.id,
             name: groupRepresentation.name,
             description: groupRepresentation.description,
             movies: groupRepresentation.movies
@@ -124,25 +117,19 @@ export async function createGroup(user, groupRepresentation) {
     return undefined
 }
 
-export async function getGroups(user) {
-    const response = await elasticHttpClient(POST, uri(GROUPS_IDX).getAll(), {
+export async function getGroups(userId) {
+    const hits = await elasticHttpClient(GROUPS_IDX).search({
         query: {
             match: {
-                user: user.id
+                user: userId
             }
         }
     })
 
-    const hits = response["hits"]["hits"]
-
-    if (hits.length === 0) {
-        return undefined
-    }
-
     return hits.map(hit => {
-        let group = hit["_source"]
+        let group = hit.body
         return {
-            id: hit["_id"],
+            id: hit.id,
             name: group.name,
             description: group.description,
             movies: group.movies
@@ -151,16 +138,12 @@ export async function getGroups(user) {
 }
 
 export async function getGroup(groupId) {
-    const response = await elasticHttpClient(GET, uri(GROUPS_IDX).get(groupId))
+    const response = await elasticHttpClient(GROUPS_IDX).get(groupId)
 
-    if (!response["found"]) {
-        return undefined
-    }
-
-    const group = response["_source"]
+    const group = response.body
 
     return {
-        id: response["_id"],
+        id: response.id,
         user: group.user,
         name: group.name,
         description: group.description,
@@ -171,9 +154,9 @@ export async function getGroup(groupId) {
 
 export async function deleteGroup(groupId) {
     const group = await getGroup(groupId)
-    const response = await elasticHttpClient(DELETE, uri(GROUPS_IDX).delete(groupId))
+    const response = await elasticHttpClient(GROUPS_IDX).delete(groupId)
 
-    if(response["result"] === "deleted") {
+    if(response.result) {
         return group
     }
 
@@ -190,14 +173,14 @@ export async function updateGroup(groupId, groupRepresentation) {
         group.movies = groupRepresentation.movies
     }
 
-    const response = await elasticHttpClient(PUT, uri(GROUPS_IDX).update(groupId), {
+    const response = await elasticHttpClient(GROUPS_IDX).update(groupId, {
         user: group.user,
         name: group.name,
         description: group.description,
         movies: group.movies
     })
 
-    if(response["result"] === "updated") {
+    if(response.result) {
         return {
             id: groupId,
             name: group.name,
