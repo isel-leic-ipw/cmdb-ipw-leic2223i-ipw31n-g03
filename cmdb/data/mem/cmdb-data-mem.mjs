@@ -37,21 +37,8 @@ export async function removeUser(userToken) {
     return
 }
 
-export async function createUser() {
-    let data = await getData()
-    let users = data.users
-    let token = crypto.randomUUID()
-    let idx = users.length + 1
-    let newUser = {
-        id: idx,
-        token: token,
-        groups:[]
-    }
-    users.push(newUser)
-    await saveData(data)
-    return newUser
-}
-export async function createUserWeb(username,password) {
+
+export async function createUser(username,password) {
     let data = await getData()
     let users = data.users
     if(users.find(user =>user.username === username )) return

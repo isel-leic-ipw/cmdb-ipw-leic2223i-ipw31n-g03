@@ -16,7 +16,6 @@ export default function (data, userData) {
         getMoviesTop: getMoviesTop,
         getMovies: getMovies,
         getMovie:getMovie,
-        createUserWeb:createUserWeb,
         getGroup: handleToken(getGroup),
         createGroup: handleToken(createGroup),
         updateGroup: handleToken(updateGroup),
@@ -118,14 +117,11 @@ export default function (data, userData) {
     return group
 }
 
-    async function createUser() {
-        return await userData.createUser()
+    async function createUser(username,password) {
+        return await userData.createUser(username,password)
     }
     async function deleteUser(user) {
         return await userData.removeUser(user.id)
-    }
-    async function createUserWeb(username,password) {
-        return await userData.createUserWeb(username,password)
     }
 
     function handleToken(handler) {

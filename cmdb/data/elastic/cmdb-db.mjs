@@ -46,8 +46,8 @@ export async function getUserWeb(username, password) {
         id: hit.id,
         username: user.username,
         password: user.password,
-        token: user.token,
-        groups: user.groups
+        token: user.token
+        //, groups: user.groups
     }
 }
 
@@ -68,20 +68,8 @@ export async function removeUser(userId) {
     return response.result
 }
 
-export async function createUser() {
-    const token = crypto.randomUUID()
-    const response = await elasticHttpClient(USERS_IDX).create({
-        token: token
-    })
 
-    if(response.result) {
-        return token
-    }
-
-    return undefined
-}
-
-export async function createUserWeb(username, password) {
+export async function createUser(username, password) {
     const user = {
         username: username,
         password: password,

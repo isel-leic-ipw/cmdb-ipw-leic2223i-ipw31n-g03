@@ -1,5 +1,7 @@
 .idea
 
+cmdb/sessions
+
 package-lock.json
 
 node_modules

@@ -463,6 +463,23 @@ paths:
       summary: Create a User
       description: Create a User in the system
       operationId: createUser
+      requestBody:
+        description: Create a User
+        content:
+          application/json:
+            schema:
+              required:
+                - username
+                - password
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: my Username
+                password:
+                  type: string
+                  example: Some password
+        required: true
       responses:
         201:
           description: User created
@@ -528,6 +545,16 @@ components:
         ratingCount:
           type: integer
           example: 2659683
+        image:
+          type: string
+          example: "https://m.media-amazon.com/images/M/MV5BNjJlYmNkZGItM2NhYy00MjlmLTk5NmQtNjg1NmM2ODU4OTMwXkEyXkFqcGdeQXVyMjUzOTY1NTc@._V1_Ratio0.6716_AL_.jpg"
+        directors:
+          type: string
+          example: "Lana Wachowski, Lilly Wachowski"
+        actors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Actor'
     Group:
       required:
       - id
@@ -550,25 +577,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Movie'
-    NewGroup:
-      required:
-        - id
-        - name
-      type: object
-      properties:
-        id:
-          type: integer
-          example: 1
-        name:
-          type: string
-          example: My Group
-        description:
-          type: string
-          example: Some Group description
-        movies:
-          type: array
-          items:
-            $ref: '#/components/schemas/Movie'
     NewGroupCreated:
       required:
         - status
@@ -579,7 +587,7 @@ components:
           type: string
           example: Group with id 1 created with success
         group:
-          $ref: '#/components/schemas/NewGroup'
+          $ref: '#/components/schemas/Group'
     InvalidRequest:
       type: object
       properties:
@@ -628,4 +636,17 @@ components:
             message:
               type: string
               example: "Group with id {{groupId}} not found"
+    Actor:
+      required:
+        - name
+        - character
+      type: object
+      properties:
+        name:
+          type: string
+          example: "Keanu Reeves"
+        character:
+          type: string
+          example: "Neo"
+
 

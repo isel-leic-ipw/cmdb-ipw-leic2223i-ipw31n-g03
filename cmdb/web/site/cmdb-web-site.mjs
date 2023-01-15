@@ -41,7 +41,7 @@ export default function (services) {
         return new View('login',{title:`Create Account`,action:'./createuser'})
     }
    async function createUser(req, rsp){
-        let user = await services.createUserWeb(req.body.username, req.body.password)
+        let user = await services.createUser(req.body.username, req.body.password)
         req.login(user, () => rsp.redirect('/site/auth/home'))
     }
     async function deleteUser(req, rsp){
