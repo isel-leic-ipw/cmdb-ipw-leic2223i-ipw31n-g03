@@ -1,12 +1,13 @@
 {
 	"info": {
-		"_postman_id": "301ac869-ffe7-4159-ad3a-b6c602c9509c",
+		"_postman_id": "93b51d49-510b-4d34-b730-e6cbaaae50d8",
 		"name": "ipw-cmdb",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21611265"
 	},
 	"item": [
 		{
-			"name": "/movies/top",
+			"name": "/api/movies/top",
 			"request": {
 				"auth": {
 					"type": "noauth"
@@ -14,21 +15,21 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:1500/movies/top",
+					"raw": "http://localhost:1500/api/movies/top?limit=10",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "1500",
 					"path": [
+						"api",
 						"movies",
 						"top"
 					],
 					"query": [
 						{
 							"key": "limit",
-							"value": "",
-							"disabled": true
+							"value": "10"
 						}
 					]
 				}
@@ -36,7 +37,7 @@
 			"response": []
 		},
 		{
-			"name": "/movies",
+			"name": "/api/movies",
 			"request": {
 				"auth": {
 					"type": "noauth"
@@ -44,25 +45,24 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:1500/movies",
+					"raw": "http://localhost:1500/api/movies?limit=3&title=lord",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "1500",
 					"path": [
+						"api",
 						"movies"
 					],
 					"query": [
 						{
 							"key": "limit",
-							"value": "3",
-							"disabled": true
+							"value": "3"
 						},
 						{
 							"key": "title",
-							"value": "lord",
-							"disabled": true
+							"value": "lord"
 						}
 					]
 				}
@@ -70,18 +70,19 @@
 			"response": []
 		},
 		{
-			"name": "/groups",
+			"name": "/api/groups",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:1500/groups",
+					"raw": "http://localhost:1500/api/groups",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "1500",
 					"path": [
+						"api",
 						"groups"
 					]
 				}
@@ -89,7 +90,7 @@
 			"response": []
 		},
 		{
-			"name": "/groups",
+			"name": "/api/groups",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -103,13 +104,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:1500/groups",
+					"raw": "http://localhost:1500/api/groups",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "1500",
 					"path": [
+						"api",
 						"groups"
 					]
 				}
@@ -117,27 +119,28 @@
 			"response": []
 		},
 		{
-			"name": "/groups/{groupId}",
+			"name": "/api/groups/{groupId}",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:1500/groups/4",
+					"raw": "http://localhost:1500/api/groups/pMtjt4UBkV9X_FqswqzM",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "1500",
 					"path": [
+						"api",
 						"groups",
-						"4"
+						"pMtjt4UBkV9X_FqswqzM"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "/groups/{groupId}",
+			"name": "/api/groups/{groupId}",
 			"request": {
 				"method": "PUT",
 				"header": [],
@@ -151,22 +154,23 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:1500/groups/4",
+					"raw": "http://localhost:1500/api/groups/pMtjt4UBkV9X_FqswqzM",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "1500",
 					"path": [
+						"api",
 						"groups",
-						"4"
+						"pMtjt4UBkV9X_FqswqzM"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "/groups/{groupId}",
+			"name": "/api/groups/{groupId}",
 			"request": {
 				"method": "DELETE",
 				"header": [],
@@ -180,58 +184,89 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:1500/groups/4",
+					"raw": "http://localhost:1500/api/groups/pMtjt4UBkV9X_FqswqzM",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "1500",
 					"path": [
+						"api",
 						"groups",
-						"4"
+						"pMtjt4UBkV9X_FqswqzM"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "/groups/{groupId}/{movieId}",
+			"name": "/api/groups/{groupId}/{movieId}",
 			"request": {
 				"method": "PUT",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "localhost:1500/api/groups/pMtjt4UBkV9X_FqswqzM/tt0111091",
+					"host": [
+						"localhost"
+					],
+					"port": "1500",
+					"path": [
+						"api",
+						"groups",
+						"pMtjt4UBkV9X_FqswqzM",
+						"tt0111091"
+					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "/groups/{groupId}/{movieId}",
+			"name": "/api/groups/{groupId}/{movieId}",
 			"request": {
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "localhost:1500/api/groups/pMtjt4UBkV9X_FqswqzM/tt0111091",
+					"host": [
+						"localhost"
+					],
+					"port": "1500",
+					"path": [
+						"api",
+						"groups",
+						"pMtjt4UBkV9X_FqswqzM",
+						"tt0111091"
+					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "create user",
+			"name": "/api/users",
 			"request": {
 				"auth": {
 					"type": "noauth"
 				},
 				"method": "POST",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"username\":\"testUser\" ,\"password\":\"aaa\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "http://localhost:1500/users",
+					"raw": "http://localhost:1500/api/users",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "1500",
 					"path": [
+						"api",
 						"users"
 					]
 				}
@@ -244,7 +279,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "dac7dfa1-660e-4436-b487-8124ada49f91",
+				"value": "4e093199-4589-465b-8f06-c61908f20c98",
 				"type": "string"
 			}
 		]
